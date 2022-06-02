@@ -1,0 +1,51 @@
+<div class="p-3">
+  <div class="row mb-3">
+    <div class="col-5 common-heading"><!-- heading goes here--></div>
+    <div class="common-primary-action-bar col-7">
+      <button type="button" class="common-action-btn" *ngIf="IsAdmin" (click)="addModel()"> Create </button>
+      <button type="button" class="common-action-btn" [disabled]="selectedModelIds.length != 1" (click)="viewModel()"> View </button>
+      <button type="button" class="common-action-btn" *ngIf="IsAdmin" [disabled]="selectedModelIds.length <= 1" (click)="bulkEditModels()"> Bulk Edit </button>
+      <button type="button" class="common-action-btn" *ngIf="IsAdmin" [disabled]="selectedModelIds.length <= 1" (click)="blendModels()"> Blend </button>
+      <button type="button" class="common-action-btn" *ngIf="IsAdmin" [disabled]="!selectedModelIds.length" (click)="deleteModels()"> Delete </button>
+      <button type="button" class="common-action-btn" (click)="refreshDataGrid()"> Refresh   </button>
+    </div>
+  </div>
+  <zega-data-grid [grid]="gridName"
+                  selectionMode="multiple"
+                  [hasSubGrid]="true"
+                  [subGrid]="subGridName"
+                  subGridDataIdentifier="modelItems"
+                  gridCompId="modelListingGridId"
+                  [requestRefresh]="refreshGrid"
+                  [hasAdvancedFilter]="true"
+                  [enableExportExcel]="true"
+                  [enableRowsDblClick]="true"
+                  [requireSelectionOverPages]="true"
+                  [preSelectedRows]="selectedModels"
+                  (gridRowsDblClicked)="gridRowsDblClickedCallback($event)"
+                  (gridRowsSelected)="gridRowsSelectedCallback($event)">
+
+  </zega-data-grid>
+  <zega-model-details-sidebar *ngIf="showModelSidebar"
+                              [modelId]="modelViewId"
+                              (confirmCallback)="modelSidebarCallback($event)"
+                              (cancelCallback)="modelSidebarCallback($event)">
+
+  </zega-model-details-sidebar>
+
+  <zega-blend-model-sidebar *ngIf="showBlendModelSidebar"
+                            [subModels]="blendedModelsItems"
+                            (confirmCallback)="blendModelSidebarCallback($event)"
+                            (cancelCallback)="blendModelSidebarCallback($event)">
+
+  </zega-blend-model-sidebar>
+
+  <zega-bulk-edit-sidebar *ngIf="showBulkEditSidebar"
+                          [selectedIds]="selectedModelIds"
+                          [gridName]="gridName"
+                          (confirmCallback)="bulkEditSidebarCallback($event)"
+                          (cancelCallback)="bulkEditSidebarCallback($event)">
+
+  </zega-bulk-edit-sidebar>
+
+</div>

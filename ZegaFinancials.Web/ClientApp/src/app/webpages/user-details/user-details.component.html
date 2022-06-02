@@ -1,0 +1,179 @@
+
+<div class="p-3">
+  <form class="" [formGroup]="userDetailsForm" (ngSubmit)="submitUserForm()">
+    <div class="common-primary-action-bar">
+      <button type="submit" class="common-action-btn" [disabled]="!validateUserDetails"> Save </button>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="form-group col-3">
+        <label for="FirstName" class="common-input-label">First Name</label>
+        <input type="text" formControlName="FirstName" id="FirstName" class="common-input" placeholder="First Name" />
+        <div class="common-input-error-block">
+          <span *ngIf="userDetailsForm.get('FirstName')?.invalid && ( userDetailsForm.get('FirstName')?.dirty || userDetailsForm.get('FirstName')?.touched)">
+            <span *ngIf="userDetailsForm.get('FirstName')?.hasError('required')">This field is required!</span>
+            <span *ngIf="userDetailsForm.get('FirstName')?.hasError('maxlength')">This field should have less than 100 Characters!</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group col-3">
+        <label for="LastName" class="common-input-label">Last Name</label>
+        <input type="text" formControlName="LastName" id="LastName" class="common-input" placeholder="Last Name" />
+        <div class="common-input-error-block">
+          <span *ngIf="userDetailsForm.get('LastName')?.invalid && ( userDetailsForm.get('LastName')?.dirty || userDetailsForm.get('LastName')?.touched)">
+            <span *ngIf="userDetailsForm.get('LastName')?.hasError('maxlength')">This field should have less than 100 Characters!</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group col-3">
+        <label for="Login" class="common-input-label">Login Id</label>
+        <input type="text" formControlName="Login" id="Login" class="common-input" placeholder="Login Id" />
+        <div class="common-input-error-block">
+          <span *ngIf="userDetailsForm.get('Login')?.invalid && ( userDetailsForm.get('Login')?.dirty || userDetailsForm.get('Login')?.touched)">
+            <span *ngIf="userDetailsForm.get('Login')?.hasError('required')">This field is required!</span>
+            <span *ngIf="userDetailsForm.get('Login')?.hasError('maxlength')">This field should have less than 25 Characters!</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group col-3">
+        <label for="Status" class="common-input-label">Status</label>
+        <mat-select formControlName="Status" class="common-select">
+          <mat-option *ngFor="let item of statesDropdown | enumsToArray" [value]="item.Value">
+            {{item.Key}}
+          </mat-option>
+        </mat-select>
+      </div>
+    </div>
+  </form>
+
+  <div class="row">
+    <div class="form-group col-3">
+      <label for="Login" class="common-input-label">Primary Mobile</label>
+      <input type="text" id="PrimaryMobile" class="common-input" placeholder="Primary Mobile" disabled [value]="PrimaryMobile" />
+    </div>
+    <div class="form-group col-3">
+      <label for="Login" class="common-input-label">Primary Email</label>
+      <input type="text" id="PrimaryEmail" class="common-input" placeholder="Primary Email" disabled [value]="PrimaryEmail" />
+    </div>
+    <div class="form-group col-3" *ngIf="!isAdmin">
+      <label for="Login" class="common-input-label">Models</label>
+      <br />
+      <button type="button" class="common-action-btn" (click)="selectModels()"> {{userModels.length}} Selected </button>
+    </div>
+    <div class="form-group col-3" *ngIf="!isAdmin">
+      <label for="Login" class="common-input-label">RepCodes</label>
+      <br />
+      <button type="button" class="common-action-btn" (click)="selectRepCodes()"> {{userRepCodes.length}} Selected </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-4">
+      <form class="" [formGroup]="mobileForm" (ngSubmit)="submitMobileForm()">
+        <div class="row common-margin-0">
+          <div class="form-group col-2 common-padding-2">
+            <mat-select formControlName="Code" id="Code" class="common-select" placeholder="Country">
+              <mat-option *ngFor="let item of countriesDropdown | enumsToArray" [value]="item.Value">
+                {{item.Key}}
+              </mat-option>
+            </mat-select>
+          </div>
+
+          <div class="form-group col-6 common-padding-2">
+            <input type="text" formControlName="Mobile" id="Mobile" class="common-input" placeholder="Mobile" />
+            <div class="common-input-error-block">
+              <span *ngIf="mobileForm.get('Mobile')?.invalid && ( mobileForm.get('Mobile')?.dirty || mobileForm.get('Mobile')?.touched)">
+                <span *ngIf="mobileForm.get('Mobile')?.hasError('pattern')">Invalid Mobile No.!</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="form-group col-4 common-padding-2">
+            <button type="submit" class="common-action-btn" [disabled]="!mobileForm.valid"> Add </button>
+            <button type="button" class="common-action-btn" [disabled]="!selectedMobileIds.length" (click)="deleteSeletedMobiles()"> Delete </button>
+          </div>
+        </div>
+      </form>
+      <div>
+        <zega-data-grid [grid]="mobileGridName"
+                        [overrideDataAPI]="true"
+                        [gridDataAPICall]="getUserMobiles"
+                        [enablePagination]="false"
+                        [enableFilters]="false"
+                        sortingMode="single"
+                        [enableQuickSearch]="false"
+                        [enableColumnChooser]="false"
+                        gridParent="section"
+                        selectionMode="multiple"
+                        gridCompId="userMobileGridId"
+                        [requestRefresh]="refreshMobileGrid"
+                        [enableEditing]="true"
+                        [gridDataEditCall]="editGridCallback"
+                        (gridRowsSelected)="gridRowsSelectedCallback($event)">
+
+        </zega-data-grid>
+      </div>
+    </div>
+
+    <div class="col-4">
+      <form class="" [formGroup]="emailForm" (ngSubmit)="submiEmailForm()">
+        <div class="row common-margin-0">
+          <div class="form-group col-8 common-padding-2">
+            <input type="text" formControlName="Email" id="Email" class="common-input" placeholder="Email Id" />
+            <div class="common-input-error-block">
+              <span *ngIf="emailForm.get('Email')?.invalid && ( emailForm.get('Email')?.dirty || emailForm.get('Email')?.touched)">
+                <span *ngIf="emailForm.get('Email')?.hasError('required')">This is required!</span>
+                <span *ngIf="emailForm.get('Email')?.hasError('email')">Invalid email!</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="form-group col-4 common-padding-2">
+            <button type="submit" class="common-action-btn" [disabled]="!emailForm.valid"> Add </button>
+            <button type="button" class="common-action-btn" (click)="deleteSeletedEmails()" [disabled]="!selectedEmailIds.length"> Delete </button>
+          </div>
+        </div>
+      </form>
+      <div>
+        <zega-data-grid [grid]="emailGridName"
+                        [overrideDataAPI]="true"
+                        [gridDataAPICall]="getUserEmails"
+                        [enablePagination]="false"
+                        [enableFilters]="false"
+                        sortingMode="single"
+                        [enableQuickSearch]="false"
+                        [enableColumnChooser]="false"
+                        gridParent="section"
+                        selectionMode="multiple"
+                        gridCompId="userEmailGridId"
+                        [requestRefresh]="refreshEmailGrid"
+                        [enableEditing]="true"
+                        [gridDataEditCall]="editGridCallback"
+                        (gridRowsSelected)="gridRowsSelectedCallback($event)">
+
+        </zega-data-grid>
+      </div>
+    </div>
+
+    <div class="col-4" *ngIf="!isAdmin">
+    </div>
+  </div>
+</div>
+
+<div>
+  <zega-model-listing-sidebar *ngIf="showModelListingSidebar"
+                              [selectedModels]="userModels"
+                              (confirmCallback)="gridRowsSelectedCallback($event)"
+                              (cancelCallback)="closeModelSidebar()">
+
+  </zega-model-listing-sidebar>
+  <zega-rep-codes-sidebar *ngIf="showRepCodesListingSidebar"
+                              [selectedRepCodes]="userRepCodes"
+                              (confirmCallback)="gridRowsSelectedCallback($event)"
+                              (cancelCallback)="closeRepCodesSidebar()">
+
+  </zega-rep-codes-sidebar>
+</div>

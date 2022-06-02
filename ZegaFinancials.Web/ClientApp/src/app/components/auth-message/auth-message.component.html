@@ -1,0 +1,53 @@
+<!-- Error Messages Pop up -->
+<div class="app-auth-msg-popup-container" [class.app-display-auth-message-popup]="showErrorPopup">
+  <div class="app-auth-message-container-inner">
+    <div class="app-auth-message-popup app-error-auth-popup">
+      <!-- Error are displayed here -->
+      <div class="error-container">
+        <div class="auth-message-code">
+          <i class="fas fa-exclamation-triangle"></i>
+          <span> Error : </span>
+          <i class="fa fa-times auth-message-cross" (click)="hideErrorMessagePopup()"></i>
+        </div>
+        <div class="auth-message-in-popup">
+          <span class="auth-message-heading">Message :&nbsp;</span>
+          <span> {{responseDataObj.message}}</span>
+
+          <div *ngIf="responseDataObj.exception">
+            <span class="show-more-auth-msg" (click)="this.showMoreOrLessErrorDetails()">
+              <i class="far fa-plus-square" *ngIf="!showErrorDescription"></i>
+              <i class="far fa-minus-square" *ngIf="showErrorDescription"></i>
+              <span> View More Details </span>
+            </span>
+            <div class="auth-description" [class.show-auth-description]="showErrorDescription">
+              {{responseDataObj.exception}}
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Success Messages Pop up -->
+<div class="app-auth-msg-popup-container" [class.app-display-auth-message-popup]="showSuccessPopup">
+  <div class="app-auth-message-container-inner">
+    <div class="app-auth-message-popup app-success-auth-popup">
+      <!-- Success are displayed here -->
+      <div class="success-container">
+        <div class="auth-message-code">
+          <i class="fa fa-check"></i>
+          <span> Success : </span>
+          <i class="fa fa-times auth-message-cross" (click)="hideErrorMessagePopup()"></i>
+        </div>
+        <div class="auth-message-in-popup">
+          <span class="auth-message-heading">Message :&nbsp;</span>
+          <span> {{responseDataObj.message}}</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

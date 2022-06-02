@@ -1,0 +1,354 @@
+
+<mat-horizontal-stepper labelPosition="bottom" [linear]="isLinearStepper" #stepper>
+
+  <mat-step [completed]="false" [stepControl]="basicDetailsForm">
+    <ng-template matStepLabel>Basic Details</ng-template>
+    <div>
+      <form [formGroup]="basicDetailsForm" (ngSubmit)="submitbasicDetailsForm(true)">
+
+        <div class="container-fluid card pl-2 mb-2">
+
+          <div class="row mt-2 mb-4">
+
+            <div class="col-3">
+              <label for="RepCode"> Rep Code*</label>
+              <input type="text" class="common-input" matInput formControlName="RepCode" [matAutocomplete]="RepCode" >
+              <mat-autocomplete #RepCode="matAutocomplete" (optionSelected)="repCodeSelected($event)">
+                <mat-option *ngFor="let list of repcodeListObs | async" [value]="list"> {{list.name}} </mat-option>
+              </mat-autocomplete>
+            </div>
+
+            <div class="col-3">
+              <label for="ClientName">Client Name* </label>
+              <input class="common-input" type="text" Placeholder="Client Name" id="ClientName" formControlName="ClientName" />
+            </div>
+
+            <div class="col-3">
+              <label for="Name"> Account Name</label>
+              <input class="common-input" type="text" Placeholder="Account Name" id="Name" formControlName="Name" />
+            </div>
+
+            <div class="col-3">
+              <label for="AccountValue">Account Value($)* </label>
+              <input class="common-input" type="number" Placeholder="Account Value" id="AccountValue" min="0" formControlName="AccountValue" />
+            </div>
+
+          </div>
+
+          <div class="row mt-2 mb-4">
+
+            <div class="col-3">
+              <label for="Number">Account Number* </label>
+              <input class="common-input" type="text" placeholder="Account Number" id="Number" formControlName="Number" [readonly]="accountId" />
+            </div>
+
+            <div class="col-3">
+              <label for="AccountType">Account Type*</label>
+              <mat-select class="common-select" id="AccountType" formControlName="AccountType">
+                <mat-option *ngFor="let item of accountType | backendEnumToArray" [value]="item.Value"> {{item.Key}} </mat-option>
+              </mat-select>
+            </div>
+
+            <div class="col-3">
+              <label for="SBuyingPower">SBuying Power </label>
+              <input class="common-input" type="number" Placeholder="SBuying Power" id="SBuyingPower" formControlName="SBuyingPower" />
+            </div>
+
+            <div class="col-3">
+              <label for="OBuyingPower">OBuying Power</label>
+              <input class="common-input" type="number" Placeholder="OBuying Power" id="OBuyingPower" formControlName="OBuyingPower" />
+            </div>
+
+          </div>
+
+          <div class="row mt-2 mb-4">
+            <div class="col-3">
+              <label for="CashNetBal">Cash Net Balance($)</label>
+              <input class="common-input" type="number" Placeholder="Cash Net Balance" id="CashNetBal" min="0" formControlName="CashNetBal" />
+            </div>
+
+            <div class="col-3">
+              <label for="AccountStatus"> Account Status* </label>
+              <mat-select class="common-select" id="AccountStatus" formControlName="AccountStatus">
+                <mat-option *ngFor="let status of accountStatus | backendEnumToArray" [value]="status.Value"> {{status.Key}} </mat-option>
+              </mat-select>
+            </div>
+
+            <div class="col-3">
+              <label for="VeoImportDate">Import Date</label>
+              <input class="common-input" type="date" Placeholder="Import Date" id="VeoImportDate" formControlName="VeoImportDate" />
+            </div>
+
+            <div class="col-3">
+              <label for="AllocationDate">Allocation Date </label>
+              <input class="common-input" type="date" Placeholder="Account Value" id="AllocationDate" formControlName="AllocationDate" />
+            </div>
+
+          </div>
+
+          <div class="row mt-2 mb-4">
+
+            <div class="col-3">
+              <label for="CashEq">Cash Equivalent</label>
+              <input class="common-input" type="number" Placeholder="Cash Equivalent" id="CashEq" min="0" formControlName="CashEq" />
+            </div>
+
+            <div class="col-3">
+              <label for="Name"> Advisors </label>
+              <input class="common-input" type="text" id="AdvisorsName" readonly [value]="advisorsName" />
+            </div>
+
+            <div class="col-3">
+              <label for="Broker"> Broker* </label>
+              <mat-select class="common-select" id="Broker" formControlName="Broker">
+                <mat-option *ngFor="let item of broker | backendEnumToArray" [value]="item.Value"> {{item.Key}} </mat-option>
+              </mat-select>
+            </div>
+
+            
+          </div>
+          <div class="row mt-2 mb-4">
+            <div class="col-6">
+              <label for="Notes">Notes </label>
+              <textarea class="common-input" row="10" id="Notes" formControlName="Notes"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-center">
+            <button mat-button class="theme-btn-color rounded-pill" type="submit" [disabled]="!basicDetailsForm.valid">Save & Next</button>
+            <button mat-button class="theme-btn-color rounded-pill" type="button" (click)="submitbasicDetailsForm(false)" [disabled]="!basicDetailsForm.valid">Save & Return</button>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+
+  </mat-step>
+
+  <mat-step [completed]="false" [stepControl]="basicDetailsForm">
+    <ng-template matStepLabel>Model Details</ng-template>
+    <div class="">
+      <div class="row ml-0 mr-0">
+        <div class="col-6 mt-2 mb-2 p-2">
+          Selected Model:
+          &nbsp; &nbsp;
+          <span class="account-selected-model-name" *ngIf="modelId != 0">
+            {{modelName}}
+          </span>
+        </div>
+        <div class="common-primary-action-bar col-6 mt-2 mb-2 p-2" *ngIf="IsAdmin">
+          <button type="button" class="common-action-btn" [disabled]="selectedModelIds.length <= 1" (click)="blendModels()"> Blend </button>
+        </div>
+      </div>
+      <div class="row ml-0 mr-0 mb-2">
+        <mat-accordion class="common-left-full-width">
+          <mat-expansion-panel (opened)="gridPanelOpenState = true">
+            <mat-expansion-panel-header>
+              <mat-panel-title> Add/Update Model </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-panel-description>
+              <zega-data-grid *ngIf="gridPanelOpenState"
+                              [grid]="gridName"
+                              gridParent="section"
+                              [selectionMode]="IsAdmin ? 'multiple': 'single'"
+                              gridCompId="accountModelListingGridId"
+                              [requestRefresh]="refreshGrid"
+                              [preSelectedRows]="selectedModels"
+                              [requireSelectionOverPages]="true"
+                              [hasAdvancedFilter]="true"
+                              [enableExportExcel]="true"
+                              [apiAddnlParams]="AccoutModelListingGridAddParam"
+                              (gridRowsSelected)="gridRowsSelectedCallback($event)">
+
+              </zega-data-grid>
+            </mat-panel-description>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-12 text-center">
+        <button mat-button class="theme-btn-color rounded-pill" type="button" matStepperPrevious>Previous</button>
+        <button mat-button class="theme-btn-color rounded-pill" type="button" [disabled]="!modelId" (click)="submitModelForm(true)">Save & Next</button>
+        <button mat-button class="theme-btn-color rounded-pill" type="button" [disabled]="!modelId" (click)="submitModelForm(false)">Save & Return</button>
+      </div>
+    </div>
+
+  </mat-step>
+
+  <mat-step [completed]="false" [stepControl]="AdditionalWithdrawals">
+    <ng-template matStepLabel>Additional Withdrawals In The Future</ng-template>
+    <form [formGroup]="AdditionalWithdrawals">
+      <div class="container-fluid card mb-2">
+
+        <div class="row mt-2 mb-4 pl-2 pr-2">
+
+          <div class="col-4 font-weight-bold">
+            Total Available Balance: ${{TotalAvailableBalance}}
+          </div>
+          <div class="col-4 font-weight-bold">
+            Available Balance: ${{AvailableBalance}}
+          </div>
+
+        </div>
+
+        <div class="row mt-2 mb-4 pl-2 pr-2">
+          <div class="col-3">
+            <label for="Future_Withdrawal">Additional Withdrawals in the Future*</label>
+            <mat-select class="common-select" id="Future_Withdrawal" formControlName="Future_Withdrawal">
+              <mat-option *ngFor="let item of withdrawlorDepositStatus | enumsToArray" [value]="item.Value"> {{item.Key}} </mat-option>
+            </mat-select>
+          </div>
+
+          <div class="col-3">
+            <label for="Withdrawl_Amount"> Withdrawal Amount </label>
+            <input class="common-input" type="number" Placeholder="Amount" id="Withdrawl_Amount" formControlName="Withdrawl_Amount" [readonly]="disabledForAddWithdrawl" />
+          </div>
+
+          <div class="col-3">
+            <label for="Withdrawl_Frequency"> Withdrawal Frequency </label>
+            <mat-select class="common-input" id="Withdrawl_Frequency" formControlName="Withdrawl_Frequency" bind-disabled="disabledForAddWithdrawl">
+              <mat-option *ngFor="let item of frequency | backendEnumToArray" [value]="item.Value"> {{item.Key}} </mat-option>
+            </mat-select>
+          </div>
+
+          <div class="col-3">
+            <label for="Withdrawl_Date"> Withdrawal Date </label>
+            <input class="common-input" type="date" id="Withdrawl_Date" formControlName="Withdrawl_Date" [readonly]="disabledForAddWithdrawl" />
+          </div>
+
+        </div>
+
+        <mat-divider></mat-divider>
+        <div class="row mt-4 mb-4 pl-2">
+
+          <div class="col-3">
+            <label for="One_Time_Withdrawal">One Time Withdrawal* </label>
+            <mat-select class="common-select" id="One_Time_Withdrawal" formControlName="One_Time_Withdrawal">
+              <mat-option *ngFor="let item of withdrawlorDepositStatus | enumsToArray" [value]="item.Value"> {{item.Key}} </mat-option>
+            </mat-select>
+          </div>
+
+          <div class="col-3">
+            <label for="One_Time_Withdrawal_Amount">One Time Withdrawal Amount </label>
+            <input class="common-input" type="number" placeholder="Amount" id="One_Time_Withdrawal_Amount" formControlName="One_Time_Withdrawal_Amount" [readonly]="disabledForOneWithdrawl" />
+          </div>
+
+          <div class="col-3">
+            <label for="One_Time_Withdrawal_Date">One Time Withdrawal Date</label>
+            <input class="common-input" type="date" id="One_Time_Withdrawal_Date" formControlName="One_Time_Withdrawal_Date" [readonly]="disabledForOneWithdrawl" />
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-12 text-center">
+          <button mat-button class="theme-btn-color rounded-pill" type="button" matStepperPrevious>Previous</button>
+          <button mat-button class="theme-btn-color rounded-pill" type="button" [disabled]="!AdditionalWithdrawals.valid" (click)="submitAddWithdrawlForm(true)">Save & Next</button>
+          <button mat-button class="theme-btn-color rounded-pill" type="button" [disabled]="!AdditionalWithdrawals.valid" (click)="submitAddWithdrawlForm(false)">Save & Return</button>
+        </div>
+      </div>
+    </form>
+  </mat-step>
+
+
+
+  <mat-step [completed]="false" [stepControl]="AdditionalDeposits">
+    <ng-template matStepLabel>Additional Deposits</ng-template>
+    <form [formGroup]="AdditionalDeposits">
+      <div class="container-fluid card mb-2">
+
+        <div class="row mt-2 mb-4 pl-2 pr-2">
+
+          <div class="col-3">
+            <label for="Deposit_Status">Any Deposits*</label>
+            <mat-select class="common-select" id="Deposit_Status" formControlName="Deposit_Status">
+              <mat-option *ngFor="let item of withdrawlorDepositStatus | enumsToArray" [value]="item.Value"> {{item.Key}} </mat-option>
+            </mat-select>
+          </div>
+
+          <div class="col-3">
+            <label for="Deposit_Amount"> Deposit Amount </label>
+            <input class="common-input" type="number" Placeholder="Amount" id="Deposit_Amount" formControlName="Deposit_Amount" [readonly]="disabledForAddDeposit" />
+          </div>
+
+          <div class="col-3">
+            <label for="Deposit_Frequency"> Deposit Frequency</label>
+            <mat-select class="common-select" id="Deposit_Frequency" formControlName="Deposit_Frequency" bind-disabled="disabledForAddDeposit">
+              <mat-option *ngFor="let item of frequency | backendEnumToArray" [value]="item.Value"> {{item.Key}} </mat-option>
+            </mat-select>
+          </div>
+
+          <div class="col-3">
+            <label for="Deposit_Date"> Deposit Date </label>
+            <input class="common-input" type="date" id="Deposit_Date" formControlName="Deposit_Date" [readonly]="disabledForAddDeposit" />
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-12 text-center">
+          <button mat-button class="theme-btn-color rounded-pill" type="button" matStepperPrevious>Previous</button>
+          <button mat-button class="theme-btn-color rounded-pill" type="button" [disabled]="!AdditionalDeposits.valid" (click)="submitAddDepositForm(true)">Save & Next</button>
+          <button mat-button class="theme-btn-color rounded-pill" type="button" [disabled]="!AdditionalDeposits.valid" (click)="submitAddDepositForm(false)">Save & Return</button>
+        </div>
+      </div>
+
+    </form>
+  </mat-step>
+  <mat-step [completed]="false" [stepControl]="ZegaCustomFields">
+    <ng-template matStepLabel>ZEGA Custom Fields</ng-template>
+    <form [formGroup]="ZegaCustomFields" (ngSubmit)="submitZegaCustomForm()">
+      <div class="container-fluid card mb-2">
+        <div class="row mt-2 mb-4 pl-2 pr-2">
+
+          <div class="col-3">
+            <label for="ZEGA_Confirmed">ZEGA Confirmed*</label>
+            <mat-select class="common-select" id="ZEGA_Confirmed" formControlName="ZEGA_Confirmed" bind-disabled="!IsAdmin">
+              <mat-option *ngFor="let item of withdrawlorDepositStatus | enumsToArray" [value]="item.Value"> {{item.Key}} </mat-option>
+            </mat-select>
+          </div>
+
+          <div class="col-3">
+            <label for="ZEGA_Alert_Date">ZEGA Alert Date </label>
+            <input class="common-input" [readonly]="!IsAdmin ? true : null" type="date" id="ZEGA_Alert_Date" [min]="minDate" formControlName="ZEGA_Alert_Date" />
+          </div>
+
+          <div class="col-6">
+            <label for="ZEGA_Notes">ZEGA Notes</label>
+            <textarea class="common-input" [readonly]="!IsAdmin" id="ZEGA_Notes" formControlName="ZEGA_Notes"></textarea>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 text-center">
+          <button mat-button class="theme-btn-color rounded-pill" type="button" matStepperPrevious>Previous</button>
+          <button mat-button class="theme-btn-color rounded-pill" type="submit" [disabled]="!ZegaCustomFields.valid" >Save</button>
+        </div>
+      </div>
+
+    </form>
+  </mat-step>
+
+</mat-horizontal-stepper>
+
+
+
+<zega-blend-model-sidebar *ngIf="showBlendModelSidebar"
+                          [subModels]="blendedModelsItems"
+                          [accountId]="accountId"
+                          (confirmCallback)="blendModelSidebarCallback($event)"
+                          (cancelCallback)="blendModelSidebarCallback($event)">
+
+</zega-blend-model-sidebar>

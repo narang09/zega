@@ -1,0 +1,105 @@
+<div class="container login-center-container">
+  <div class="login-container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="zega-login-logo">
+          <img src="../../../assets/images/ZegaLogoLarge.png" alt="LogoImage" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="login-info-panel">
+
+          <form class="login-form" [formGroup]="loginForm" (ngSubmit)="submitLoginForm(false)" *ngIf="activeForm == 'Login'">
+            <h2 class="common-heading border-bottom">Login</h2>
+
+            <div class="form-group mb-2">
+              <i class="fas fa-user mr-2"></i>
+              <input type="text" formControlName="Login" class="common-imput-w-icon" placeholder="Username" />
+              <div class="common-input-error-block pl-4">
+                <span *ngIf="!loginForm.get('Login')?.valid && loginForm.get('Login')?.touched">
+                  <span *ngIf="loginForm.get('Login')?.hasError('required')">This field is required!</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group mb-2">
+              <i class="fas fa-key mr-2"></i>
+              <input type="password" formControlName="Password" class="common-imput-w-icon" placeholder="Password" />
+              <div class="common-input-error-block pl-4">
+                <span *ngIf="!loginForm.get('Password')?.valid && loginForm.get('Password')?.touched">
+                  <span *ngIf="loginForm.get('Password')?.hasError('required')">This field is required!</span>
+                </span>
+              </div>
+            </div>
+            <div class="pl-3">
+              <button type="submit" class="common-action-btn" [disabled]="!loginForm.valid"> Sign In </button>
+              <span type="button" class="common-action-link float-right" (click)="forgetPassword()"> Forgot Password? </span>
+            </div>
+          </form>
+
+          <form class="login-form" [formGroup]="forgotForm" (ngSubmit)="submitForgotForm()" *ngIf="activeForm == 'ChangePassword'">
+            <h2 class="common-heading border-bottom">Forgot Password</h2>
+            <div class="form-group mb-2">
+              <i class="fas fa-user mr-2"></i>
+              <input type="email" formControlName="Email" class="common-imput-w-icon" placeholder="Email" />
+              <div class="common-input-error-block pl-4">
+                <span *ngIf="!forgotForm.get('Email')?.valid && forgotForm.get('Email')?.touched">
+                  <span *ngIf="forgotForm.get('Email')?.hasError('required')">This field is required!</span>
+                  <span *ngIf="forgotForm.get('Email')?.hasError('pattern')">Invalid Email!</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="pl-3">
+              <button type="submit" class="common-action-btn" [disabled]="!forgotForm.valid"> Forgot Password</button>
+
+              <div class="mt-4 mb-3">
+                <span type="button" class="common-action-link" (click)="backToLogin()"> <i class="fas fa-long-arrow-alt-left"></i>  Back To Login </span>
+              </div>
+            </div>
+
+          </form>
+
+          <form class="login-form" [formGroup]="resetPasswordForm" (ngSubmit)="submitResetPassword()" *ngIf="activeForm == 'ResetPassword'">
+            <h2 class="common-heading border-bottom">Create Password</h2>
+
+            <div class="form-group mb-2 pwd">
+              <i class="fas fa-key mr-2"></i>
+              <input type="password" [type]="hideN ? 'password':'text'" formControlName="Password" class="common-imput-w-icon" placeholder="Password" />
+              <i class="far fa-eye ml-n4 mt-2" (click)="hideN = !hideN"></i>
+              <div class="common-input-error-block pl-4">
+                <span *ngIf="!resetPasswordForm.get('Password')?.valid && resetPasswordForm.get('Password')?.touched">
+
+                  <span *ngIf="resetPasswordForm.get('Password')?.hasError('required')">This field is required!</span>
+                  <span *ngIf="resetPasswordForm.get('Password')?.hasError('pattern')">
+                    The password must be of 8 characters containing an upper case, lower case letter, special character and number.
+                  </span>
+
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group mb-2 pwd">
+              <i class="fas fa-key mr-2"></i>
+              <input type="password" [type]="hideR ? 'password':'text'" formControlName="ConfirmPassword" class="common-imput-w-icon" placeholder="Confirm Password" />
+              <i class="far fa-eye ml-n4 mt-2" (click)="hideR = !hideR"></i>
+              <div class="common-input-error-block pl-4">
+                <span *ngIf="!resetPasswordForm.get('ConfirmPassword')?.valid && resetPasswordForm.get('ConfirmPassword')?.touched">
+                  <span *ngIf="resetPasswordForm.get('ConfirmPassword')?.hasError('required')">This field is required!</span>
+                  <span *ngIf="resetPasswordForm.get('ConfirmPassword')?.hasError('mustMatch')">Confirm Password should be same as Password!</span>
+                </span>
+              </div>
+            </div>
+            <div class="pl-3">
+              <button type="submit" class="common-action-btn" [disabled]="!resetPasswordForm.valid">Save</button>
+            </div>
+
+          </form>
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

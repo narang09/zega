@@ -1,0 +1,283 @@
+@import 'variables.less';
+
+body {
+  background: @app-body-bg-color;
+}
+
+.pagetitle {
+  background: @zega-pagetitle-bg-color;
+  padding: 5px 10px;
+  color: @app-dark-base-txt-color;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.layoutshadow {
+  box-shadow: 0px 0px 5px 0px #999;
+  background: @zega-white-color;
+}
+
+.layoutshadow--roundaside {
+  border-radius: 0px 10px 10px 0px;
+}
+
+.layoutshadow--roundmain {
+  border-radius: 10px;
+  height: 100%
+}
+
+
+.common-input {
+  border-radius: @zega-Input-border-radius;
+  padding: 5px;
+  width: 100%;
+  border: 1px solid transparent;
+  -webkit-box-shadow: 0px 5px 12px lightgray;
+  -moz-box-shadow: 0px 5px 12px lightgray;
+  box-shadow: 0px 5px 12px lightgray;
+
+  &:focus {
+    outline: none;
+  }
+
+  &.ng-invalid.ng-touched {
+    border: 1px solid @zega-input-invaid-color;
+  }
+}
+
+
+.common-select {
+  .common-input;
+}
+
+.common-padding-2 {
+  padding-left: 2px !important;
+  padding-right: 2px !important;
+}
+
+.common-imput-w-icon {
+  .common-input;
+  width: 90%;
+}
+
+.common-input-error-block {
+  font-size: @zega-base-font-size-m2;
+  color: @zega-input-invaid-color;
+  font-style: italic;
+  min-height: 20px;
+}
+
+.common-heading {
+  color: @zega-theme-base-color;
+  font-weight: bold;
+}
+
+
+.common-action-btn {
+  background-color: @zega-btn-color;
+  color: @zega-btn-txt-color;
+  border: none;
+  border-radius: @zega-Btn-border-radius;
+  padding: 5px 15px;
+  margin: 0 2px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    background-color: @zega-btn-hover-color;
+    cursor: pointer;
+    color: @zega-white-color;
+  }
+
+  &:disabled, &[disabled] {
+    cursor: not-allowed;
+    background-color: @zega-btn-disabled-color;
+    opacity: 0.4;
+  }
+}
+
+.common-drawer-container {
+  height: calc(100% - 44px);
+  border-radius: 10px;
+}
+
+.common-action-btn-flat {
+  .common-action-btn;
+}
+
+.common-plain-btn {
+  color: black;
+  background-color: white;
+  //-webkit-box-shadow: 0px 5px 12px lightgray;
+  //-moz-box-shadow: 0px 5px 12px lightgray;
+  //box-shadow: 0px 5px 12px lightgray;
+  border: 1px solid lightgray;
+}
+
+.common-action-link {
+  color: @zega-link-color;
+  padding: 5px;
+  -webkit-appearance: none;
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    color: @zega-link-hover-color;
+    cursor: pointer;
+  }
+}
+
+.common-row {
+  display: flex;
+  height: calc(100% - 40px);
+  /*flex-wrap: nowrap;
+  margin: 0;*/
+}
+
+.common-margin-0 {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.common-left-full-width {
+  float: left;
+  width: 100%;
+}
+
+.common-primary-action-bar {
+  text-align: right;
+}
+
+.common-section-heading {
+  color: @zega-theme-base-color;
+  font-size: @zega-base-font-size;
+  font-weight: bold;
+}
+
+.common-side-panel {
+  height: 100vh; /* Specify a height */
+  width: @zega-sidebar-width; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 10; /* Stay on top */
+  top: 0;
+  left: calc(~"100vw - @{zega-sidebar-width}");
+  background-color: @zega-white-color;
+  overflow-x: hidden;
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidepanel */
+  border-left: 1px solid black;
+  border-top-left-radius: @zega-border-radius;
+  border-bottom-left-radius: @zega-border-radius;
+  -webkit-box-shadow: 0px 5px 12px lightgray;
+  -moz-box-shadow: 0px 5px 12px lightgray;
+  box-shadow: 0px 5px 12px lightgray;
+
+  .common-sidebar-header {
+    background-color: @zega-theme-base-color;
+    color: @zega-white-color;
+    font-size: @zega-base-font-size-p2;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding: 5px;
+  }
+
+  .common-sidebar-content {
+    padding: 10px;
+    //height: 0px; // To manage from insidee Component
+    overflow-y: auto;
+  }
+
+  .common-sidebar-action-bar {
+    text-align: center;
+    margin: 10px;
+  }
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.common-wide-side-panel {
+  .common-side-panel;
+  width: @zega-wide-sidebar-width; /* 0 width - change this with JavaScript */
+  left: calc(~"100vw - @{zega-wide-sidebar-width}");
+}
+
+.theme-btn-color {
+  background-color: @zega-btn-color;
+  color: @zega-white-color;
+  margin-right: 10px;
+}
+/**Pagination Default CSS Override **/
+
+.dx-pager .dx-page-sizes .dx-selection, .dx-pager .dx-pages .dx-selection {
+  background: #17779b;
+  color: #fff;
+}
+
+.dx-pager .dx-page, .dx-pager .dx-page-size {
+  border-radius: 3px;
+  border: 1px solid #17779b;
+  color: #17779b;
+  min-width: 35px;
+  text-align: center;
+}
+
+.dx-datagrid-pager.dx-pager {
+  margin-top: 10px
+}
+
+
+/** Gide Override CSS***/
+.dx-datagrid-borders .dx-datagrid-headers .dx-datagrid-table {
+  background: #17779c;
+  color: #fff;
+}
+
+.dx-datagrid-headers .dx-datagrid-table .dx-row > td {
+  border-bottom: none;
+}
+
+.dx-datagrid .dx-row-alt > td, .dx-datagrid .dx-row-alt > tr > td {
+  background-color: #eef5f8;
+  border-top: 1px solid #e4e4e4;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.overlay {
+  opacity: .5;
+  z-index: 9;
+}
+
+.common-noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+
+/* Overriding Material CSS*/
+.mat-checkbox-checked.mat-accent .mat-checkbox-background,.mat-pseudo-checkbox-checked, .mat-pseudo-checkbox-indeterminate, .mat-accent .mat-pseudo-checkbox-checked, .mat-accent .mat-pseudo-checkbox-indeterminate {
+  background: @zega-theme-base-color;
+}
+
+.common-row-flex {
+  flex-direction: row;
+}
+
+.common-active-btn-color {
+  color: @zega-white-color !important;
+  background-color: @zega-theme-base-color !important;
+}
+.set-padding .mat-dialog-container {
+  padding: 0px;
+}

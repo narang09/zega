@@ -1,0 +1,177 @@
+
+//== Base Font Size
+//
+//## Specify App Font Size
+@zega-base-font-size: ~ '12px'; //Common font-size
+@zega-base-font-size-p2: ~ '14px'; //Common font-size plus 2
+@zega-base-font-size-m2: ~ '10px'; //Common font-size minus 2
+@zega-border-radius: ~ '6px'; //common medium size border radius
+@zega-large-border-radius: ~ '25px'; //common large border radius
+@zega-small-border-radius: ~ '5px'; //common small border radius
+@zega-base-heading-font-size: ~ '25px'; //common heading font size
+@zega-sidebar-width: ~ '350px'; // Width of all sidebars
+@zega-wide-sidebar-width: ~ '600px'; // Width of all sidebars11
+
+//Nav Width
+@app-left-nav-close-width: ~'3rem';
+@app-left-nav-open-width: ~'14rem';
+@app-right-nav-close-width: ~'2rem';
+@app-right-nav-open-width: ~'17rem';
+
+//Generic Color use
+@app-body-bg-color: ~ '#e8edf2'; //background color of body
+@app-text-color: ~ '#222222'; //text-color for data in grid
+@app-icon-color: ~ '#32526e'; //icon color
+@app-heading-color: ~ '#32526e'; //main heading color
+@app-border-color: ~ '#32526e'; //border color
+@app-overriden-default-color: ~ '#000000'; //border color
+@app-dark-text-color: #32526e;
+@app-light-text-color: #5ab6e6;
+//@app-main-header-color: #60747c;
+
+@zega-main-header-color: #60747c;
+@zega-theme-base-color: #15779a;
+@zega-theme-dark-color: #154050;
+@zega-theme-light-color: #56cff7;
+@zega-input-invaid-color: #ff0000;
+@zega-white-color: #fff;
+@zega-black-text-color: #000000;
+@zega-pagetitle-bg-color: #59707b;
+
+//== Button & Link
+//
+//## Specify Button & Link Color
+@zega-btn-color: ~ '@{zega-theme-base-color}'; //button color
+@zega-btn-hover-color: ~ '@{zega-theme-dark-color}'; //button hover color
+@zega-btn-txt-color: ~ '@{zega-white-color}'; //button text color
+@zega-link-color: ~ '@{zega-theme-base-color}'; //link line color
+@zega-link-hover-color: ~ '@{zega-theme-dark-color}'; //link hover color
+@zega-icons-color: ~ '@{zega-theme-base-color}'; // Icons base Color
+@zega-btn-disabled-color: ~'@{zega-theme-dark-color}';
+
+//== Auth Messages
+//
+//## Specify Auth Messages Essentials
+@zega-auth-msg-popup-height: ~ '200px';
+@zega-success-popup-border-color: ~ '#bcd2a4';
+@zega-success-popup-background-color: ~ '#eef5e6';
+@zega-success-txt-color: ~ '#497b21';
+@zega-error-popup-border-color: ~ '#e4c6c4';
+@zega-error-popup-background-color: ~ '#f7e9e9';
+@zega-error-txt-color: ~ '#c14040';
+
+
+//== Overlay
+//
+//## Specify Overlay Variables
+
+@app-overlay-bg-color: ~ '#ffffff'; //overlay color loader's background
+@app-overlay-opacity: ~ '0.5'; // overlay opacity
+
+//== Loader
+//
+//## Specify Loader Variables
+
+@app-loader-color: ~ '#5ab6e6'; // loader color
+@app-loader-font-size: ~ 'calc(@{zega-base-font-size} + 37px)'; // loader's font-size
+
+//== Footer
+//
+//## Specify Footer Essentials
+@app-footer-txt-color: ~ '#222222'; //footer text color
+@app-footer-txt-font-size: ~ 'calc(@{zega-base-font-size} * 0.75)'; //footer text size
+@app-footer-txt-line-height: ~ 'calc(@{app-footer-txt-font-size} * 2)'; //footer text line-height
+
+//Input Buttons Padding
+@app-inputs-padding-val: ~ '3px'; //input field padding value
+@app-btn-padding: ~ 'calc(@{app-inputs-padding-val} + 0.5px)'; //input buttom padding value
+
+
+//Inner Pages
+//
+//## Specify Inner Pages Essentials other than Login
+@app-inner-menus-bg-color: ~ '#32526e';
+@app-dark-base-txt-color: ~ '#ffffff';
+@app-highlighted-txt-color: ~ '#ffffff';
+@app-highlighted-bg-color: ~ '#5ab6e6';
+
+//Inner Inputs
+@app-inner-main-headings-txt-color: ~ '@{app-heading-color}';
+@app-inner-sub-headings-txt-color: ~ '@{app-text-color}';
+@app-input-headings: ~ '@{app-text-color}';
+@app-input-box-border-color: ~ '#cccccc';
+@app-input-box-bg-color: ~ '#ffffff';
+@app-input-box-disabled-bg-color: ~ '#f3f3f3';
+@app-selected-bg-color: ~ '#e2f5ff';
+
+//== Header
+//
+//## Specify Header Essentials
+@app-header-height: ~ '25px';
+@app-header-bg-color: ~ '#ffffff';
+
+
+//== Left Menu Panel
+//
+//## Specify Left Menu Panel Essentials
+@app-left-menu-width: ~ '16rem';
+@app-left-menu-inner-left-padding: ~ '15px';
+@app-left-menu-panel-text-color: ~ '#ffffff';
+@app-left-menu-selected-text-color: ~ '#5ab6e6';
+@app-left-menu-background-color: ~ '#32526e';
+
+//== Right Menu Panel option
+//
+//## Specify Right Menu Panel Essentials
+@app-right-menu-width: ~ '16rem';
+@app-right-menu-inner-left-padding: ~ '15px';
+@app-right-menu-panel-text-color: ~ '#ffffff';
+@app-right-menu-selected-text-color: ~ '#5ab6e6';
+@app-right-menu-background-color: ~ '#32526e';
+
+//== Internal Base Pages
+//
+//## Specify Internal Base Pages Essentials
+@app-internal-txt-color: ~ '#222222';
+@app-internal-border-color: ~ '#32526e';
+
+//== Grid
+//
+//## Specify Grid Essentials
+@app-grid-border-color: ~ '@{app-internal-border-color}';
+@app-grid-bg-color: ~ '#fdfdfd';
+@app-grid-header-color: ~ '#32526e';
+@app-grid-header-text-color: ~ '#ffffff';
+@pa-grid-cell-padding: ~ '0px 10px';
+
+
+//== Radio Button & Checkbox
+//
+//## Specify Radio Button & Checkbox Variables
+
+@app-input-btn-bg-color: ~ '#32526e';
+@app-input-btn-checked-bg-color: ~ '@{app-input-btn-bg-color}';
+@app-input-btn-checked-inner-bg-color: ~ '#ffffff';
+
+
+//== Pop-up
+//
+//## Specify Pop-up Variables
+@app-popup-overlay-opacity: ~ '0.4';
+@app-popup-overlay-bg-color: ~ '#000000';
+@app-popup-container-top: ~ '20%';
+@app-popup-container-left: ~ '20%';
+@app-popup-container-bg-color: ~ '#ffffff';
+@app-popup-container-border-color: ~ '#dddddd';
+@app-popup-header-color: ~ '#32526e';
+@app-popup-header-text-color: ~ '#ffffff';
+
+@app-light-txt-color: ~ '#727272';
+
+/**Form Inputs Fields**/
+
+@zega-Input-border-radius: ~ '6px';
+@zega-Btn-border-radius: ~ '15px';
+
+/*left nav style*/
+@zega-navHoverBG-light-color: #ebebeb;

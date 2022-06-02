@@ -1,0 +1,31 @@
+@roboto-font-path: '../../fonts/Roboto';
+
+.roboto-font(@variant, @type, @weight, @style) {
+
+  @font-full-path: '@{roboto-font-path}/@{variant}';
+
+  @font-face {
+    font-family: '@{variant}';
+    src: url('@{font-full-path}-@{type}.woff2') format('woff2'), url('@{font-full-path}-@{type}.woff') format('woff');
+    font-weight: @weight;
+    font-style: @style;
+  }
+
+  @font-face {
+    font-family: '@{variant}-@{type}';
+    src: url('@{font-full-path}-@{type}.woff2') format('woff2'), url('@{font-full-path}-@{type}.woff') format('woff');
+  }
+}
+
+.roboto-font('Roboto', 'Black', 900, normal);
+.roboto-font('Roboto', 'BlackItalic', 900, italic);
+.roboto-font('Roboto', 'Bold', 700, normal);
+.roboto-font('Roboto', 'BoldItalic', 700, italic);
+.roboto-font('Roboto', 'Light', 300, normal);
+.roboto-font('Roboto', 'LightItalic', 300, italic);
+.roboto-font('Roboto', 'Medium', 500, normal);
+.roboto-font('Roboto', 'MediumItalic', 500, italic);
+.roboto-font('Roboto', 'Regular', 400, normal);
+.roboto-font('Roboto', 'RegularItalic', 400, italic);
+.roboto-font('Roboto', 'Thin', 100, normal);
+.roboto-font('Roboto', 'ThinItalic', 100, italic);

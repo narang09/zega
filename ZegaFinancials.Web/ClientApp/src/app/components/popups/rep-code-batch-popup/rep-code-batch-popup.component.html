@@ -1,0 +1,19 @@
+<div class="container-fluid p-2">
+  <div class="common-heading mb-1" mat-dialog-title> Rep Codes </div>
+
+  <div>
+    <form [formGroup]="repCodesForm" (ngSubmit)="submitRepCodesForm()">
+      <label for="RepCodes">Select Rep Codes for Batch </label>
+      <mat-select multiple class="common-select" id="RepCodes" formControlName="RepCodes">
+        <mat-option *ngFor="let code of ALLRopCodes" [value]="code"> {{code.name}} </mat-option>
+      </mat-select>
+      <div class="popup-action-row mt-1">
+        <button mat-flat-button class="btn common-action-btn mr-2 rounded-pill" type="submit"> {{isUpdate ? 'Update': 'Add'}} Batch </button>
+        <button mat-flat-button class="btn common-action-btn ml-2 rounded-pill" [mat-dialog-close]="false"> Cancel </button>
+      </div>
+
+    </form>
+  </div>
+
+
+</div>

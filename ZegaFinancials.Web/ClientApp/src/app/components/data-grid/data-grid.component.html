@@ -1,0 +1,136 @@
+<div *ngIf="gridLoadInit">
+  <dx-data-grid [id]="gridCompId"
+                [dataSource]="dataGridCustomDataSrc"
+                [remoteOperations]="enablePagination"
+                [allowColumnReordering]="true"
+                [allowColumnResizing]="enableColResize"
+                [rowAlternationEnabled]="true"
+                [columnAutoWidth]="true"
+                [wordWrapEnabled]="enableWarap"
+                [showBorders]="true"
+                [height]="getGridHeight()"
+                [errorRowEnabled]="false"
+                [cacheEnabled]="false"
+                (onContentReady)="contentReady($event)"
+                (onRowDblClick)="onRowDblClick($event)"
+                (onToolbarPreparing)="onToolbarPreparing($event)"
+                (onSelectionChanged)="onSelectionChanged($event)">
+
+    <dxo-selection [mode]="selectionMode" selectAllMode="page"> </dxo-selection>
+
+    <dxo-pager [showPageSizeSelector]="true" [visible]="false" [allowedPageSizes]="gridAllowedPageSizes" [showInfo]="true"> </dxo-pager>
+
+    <dxo-sorting [mode]="sortingMode">  </dxo-sorting>
+
+    <dxo-editing *ngIf="enableEditing" mode="cell" [allowUpdating]="true" [allowAdding]="false" [allowDeleting]="false" startEditAction="dblClick" [selectTextOnEditStart]="true"> </dxo-editing>
+
+    <dxi-column *ngFor="let column of dataGridModel.ColumnDef"
+                [dataField]="column.DataFieldUI"
+                [caption]="column.DisplayName"
+                [cellTemplate]="column.UICellTemplete"
+                [dataType]="column.DisplayType"
+                [allowEditing]="column.IsEditable"
+                [allowSorting]="column.IsSortingEnabled"
+                [allowFiltering]="column.IsFilteringEnabled"
+                [allowReordering]="!column.IsLocked"
+                [allowResizing]="!column.IsLocked"
+                [cssClass]="column.CSSClass"
+                [fixed]="column.IsLocked"
+                [format]="column.UIFormatter"
+                fixedPosition="left"
+                [minWidth]="column.MinWidth"
+                [sortIndex]="column.SortIndex"
+                [sortOrder]="column.SortOrder"
+                [visibleIndex]="column.DisplayIndex"
+                [validationRules]="column.UIGridValidators"
+                [visible]="column.IsVisible">
+
+    </dxi-column>
+
+    <dxo-master-detail [enabled]="hasSubGrid" template="subGridTemplate"></dxo-master-detail>
+
+
+    <div *dxTemplate="let d of 'userActiveCellTemplate'">
+      <span [ngClass]="{'grid-cell-active-user' : d.value === 'Active', 'grid-cell-inactive-user' : d.value === 'InActive'}"> {{d.value}} </span>
+    </div>
+
+    <div *dxTemplate="let d of 'favouriteCellTemplate'">
+      <i [ngClass]="d.value ? 'fas fa-star' : 'far fa-star'" (dblclick)="toggleFavourite(d)"></i>
+    </div>
+
+    <div *dxTemplate="let parent of 'subGridTemplate'">
+      <zega-data-grid [grid]="subGrid"
+                      [overrideDataAPI]="true"
+                      [gridDataAPICall]="getSubGridData"
+                      [enablePagination]="false"
+                      [enableFilters]="false"
+                      sortingMode="single"
+                      [enableQuickSearch]="false"
+                      [enableColumnChooser]="false"
+                      gridParent="subGrid"
+                      selectionMode="none"
+                      [apiAddnlParams]="getSubGridAdditionalParams(parent)"
+                      gridCompId="{{gridCompId + 'SubGrid'}}">
+
+      </zega-data-grid>
+
+    </div>
+
+  </dx-data-grid>
+
+  <div class="" *ngIf="enableColumnChooser">
+
+    <div class="form-group grid-column-visibility-dropdown">
+      <div class="common-input-label grid-column-visibility-header">
+        Column Visibility
+        <i class="far fa-times-circle grid-column-visibility-cross mr-2 mt-1" (click)="closeColumnVisibilityDropodown()"></i>
+      </div>
+      <hr />
+      <div class="row grid-column-visibility-row" *ngFor="let column of dataGridModel.ColumnDef">
+        <div class="col-10 grid-column-visibility-name-container"> {{column.DisplayName}} </div>
+        <div class="col-2 grid-column-visibility-icon-container">
+          <i [ngClass]="column.IsVisible ? 'far fa-eye' : 'far fa-eye-slash'" (click)="column.IsVisible = !column.IsVisible"></i>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row ml-0 mr-0 mt-1 mb-2" *ngIf="enablePagination">
+    <span class="col-6 pl-0 pr-0">
+      <span class="col-2 pl-0 pr-0">
+
+        <mat-select id="DataGridPageSize" class="data-grid-page-size-select" placeholder="PageSize" [(value)]="dataGridModel.PaginationSize" (selectionChange)="dataGridPageSizeChanged($event)">
+          <mat-option *ngFor="let item of gridAllowedPageSizes" [value]="item"> {{item}} </mat-option>
+        </mat-select>
+      </span>
+      
+      <span class="col-9 grid-pagination-total">
+        <span class="col-6  grid-selected-count" >
+          <span *ngIf="dataGridModel.SelectedCount > 0">
+            Selected:{{dataGridModel.SelectedCount}}
+          </span>
+        </span>
+        <span class="col-6 grid-total-row">
+          Total: {{dataGridModel.TotalCount}}
+        </span>
+      </span>
+    </span>
+
+    <span class="col-6 pl-0 pr-0">
+      <ngb-pagination class="data-grid-paginator"
+                      [collectionSize]="dataGridModel.TotalCount"
+                      [(page)]="dataGridModel.Page"
+                      [maxSize]="2"
+                      [rotate]="true"
+                      [pageSize]="dataGridModel.PaginationSize"
+                      [boundaryLinks]="true"
+                      [ellipses]="true"
+                      (pageChange)="dataGridPageChanged($event)">
+
+      </ngb-pagination>
+    </span>
+
+  </div>
+
+</div>

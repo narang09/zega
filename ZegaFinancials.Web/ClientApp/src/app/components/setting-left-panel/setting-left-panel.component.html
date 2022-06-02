@@ -1,0 +1,30 @@
+<mat-drawer-container class="common-drawer-container">
+  <mat-drawer class="side-nav col-2 p-0" mode="side" opened position="start">
+    <div class="col text-center">
+      <img width="200" height="200" class="profile-picture" *ngIf="loadUserImage" [src]="imageBase64URL ? imageBase64URL : '../../../assets/images/ZegaUserProfile.jpg'" alt="Profile Picture">
+      <input style="display: none" type="file" (change)="onSelectFile($event)" #fileInput accept="image/*" />
+      <div class="profile-action-bar">
+        <button class="common-action-btn" (click)="fileInput.click()"> Upload </button>
+        <button class="common-action-btn" *ngIf="imageBase64URL" (click)="removeUploadedImage()"> Remove </button>
+      </div>
+    </div>
+    <hr />
+
+    <mat-nav-list>
+      <mat-list-item class="profile-link" (click)="changeViewToPassword(false)">
+        <div> Account</div>
+      </mat-list-item>
+
+      <mat-list-item class="profile-link" (click)="changeViewToPassword(true)">
+        <div> Password</div>
+      </mat-list-item>
+    </mat-nav-list>
+
+  </mat-drawer>
+
+  <mat-drawer-content class="adjust-margin">
+    <div *ngIf="!isPasswordView"> <zega-account-setting> </zega-account-setting> </div>
+    <div *ngIf="isPasswordView"> <zega-password-setting> </zega-password-setting> </div>
+  </mat-drawer-content>
+
+</mat-drawer-container>

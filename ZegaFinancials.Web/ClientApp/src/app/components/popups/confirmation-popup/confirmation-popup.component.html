@@ -1,0 +1,14 @@
+<div>
+  <div class="common-heading mb-0" mat-dialog-title>
+    {{header}}
+  </div>
+  <hr class="mb-2" />
+  <div mat-dialog-content class="popup-content">
+    {{message}}
+  </div>
+  <hr class="mb-0" />
+  <div mat-dialog-actions class="popup-action-row">
+    <button mat-flat-button class="btn common-action-btn rounded-pill" [mat-dialog-close]="false"> No </button>
+    <button mat-flat-button class="btn common-action-btn rounded-pill" [mat-dialog-close]="true"> Yes </button>
+  </div>
+</div>

@@ -1,0 +1,98 @@
+<div class="common-side-panel">
+
+  <div class="common-sidebar-header ">
+    Bulk Edit
+  </div>
+
+  <form class="" [formGroup]="bulkEditForm" (ngSubmit)="submitBulkEditForm()">
+    <div class="common-sidebar-content ">
+
+      <ng-container [ngSwitch]="gridName">
+        <ng-container *ngSwitchCase="DataGridNames.AccountListing" [ngTemplateOutlet]="AccountListingBulkEdit"></ng-container>
+        <ng-container *ngSwitchCase="DataGridNames.AdvisorListing" [ngTemplateOutlet]="AdvisorListingBulkEdit"></ng-container>
+        <ng-container *ngSwitchCase="DataGridNames.ModelListing" [ngTemplateOutlet]="ModelListingBulkEdit"></ng-container>
+        <ng-container *ngSwitchDefault [ngTemplateOutlet]="DefaultBulkEdit"></ng-container>
+      </ng-container>
+
+    </div>
+
+    <ng-template #AccountListingBulkEdit>
+      <div class="">
+
+        <div class="form-group col-12">
+          <label for="DropdownValue1" class="common-input-label">Account Status</label>
+          <mat-select id="DropdownValue1" formControlName="Value1" class="common-select">
+            <mat-option value="-1"> Select </mat-option>
+            <mat-option *ngFor="let item of dropDown1 | backendEnumToArray" [value]="item.Value">
+              {{item.Key}}
+            </mat-option>
+          </mat-select>
+        </div>
+
+        <div class="form-group col-12">
+          <label for="DropdownValue2" class="common-input-label">Account Type</label>
+          <mat-select id="DropdownValue2" formControlName="Value2" class="common-select">
+            <mat-option value="-1"> Select </mat-option>
+            <mat-option *ngFor="let item of dropDown2 | backendEnumToArray" [value]="item.Value">
+              {{item.Key}}
+            </mat-option>
+          </mat-select>
+        </div>
+
+        <div class="form-group col-12">
+          <label for="DropdownValue3" class="common-input-label">Model</label>
+          <mat-select id="DropdownValue3" formControlName="Value3" class="common-select">
+            <mat-option value="-1"> Select </mat-option>
+            <mat-option *ngFor="let item of dropDownArr1" [value]="item.id">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </div>
+
+      </div>
+    </ng-template>
+
+    <ng-template #AdvisorListingBulkEdit>
+      <div class="">
+
+        <div class="form-group col-12">
+          <label for="DropdownValue1" class="common-input-label">Status</label>
+          <mat-select id="DropdownValue1" formControlName="Value1" class="common-select">
+            <mat-option value="-1"> Select </mat-option>
+            <mat-option *ngFor="let item of dropDown1 | backendEnumToArray" [value]="item.Value">
+              {{item.Key}}
+            </mat-option>
+          </mat-select>
+        </div>
+
+      </div>
+    </ng-template>
+
+    <ng-template #ModelListingBulkEdit>
+      <div class="">
+
+        <div class="form-group col-12">
+          <label for="DropdownValue1" class="common-input-label">Strategies</label>
+          <mat-select id="DropdownValue1" formControlName="Value4" class="common-select" multiple>
+            <mat-option *ngFor="let item of dropDownArr1" [value]="item.id">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </div>
+
+      </div>
+    </ng-template>
+
+    <ng-template #DefaultBulkEdit>
+
+    </ng-template>
+
+    <div class="common-sidebar-action-bar">
+      <button type="submit" class="common-action-btn" [disabled]="!disableBtn"> Save </button>
+      <button type="button" class="common-action-btn" (click)="cancel()"> Cancel </button>
+    </div>
+
+  </form>
+
+</div>
+<div class="overlay modal-backdrop"></div>

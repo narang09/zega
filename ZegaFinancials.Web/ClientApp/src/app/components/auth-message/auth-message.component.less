@@ -1,0 +1,96 @@
+@import '../../../assets/less/mixins.less';
+@import '../../../assets/less/variables.less';
+
+.app-auth-msg-popup-container {
+  position: fixed;
+  top: calc(~'@{zega-auth-msg-popup-height} - (2 * @{zega-auth-msg-popup-height})');
+  width: 98%;
+  z-index: 10001;
+  font-size: @zega-base-font-size;
+  .transition-effect(0.7s);
+}
+
+.app-display-auth-message-popup {
+  top: calc(~'@{zega-auth-msg-popup-height} - @{zega-auth-msg-popup-height}');
+  .transition-effect(0.7s);
+}
+
+.app-auth-message-container-inner {
+  width: 30%;
+  margin: 0 auto;
+}
+
+.app-auth-message-popup {
+  overflow-y: auto;
+  border-radius: 0px 0px 5px 5px;
+  max-height: @zega-auth-msg-popup-height;
+}
+
+.app-error-auth-popup {
+  .auth-message(@zega-error-popup-background-color; @zega-error-txt-color; @zega-error-popup-border-color);
+}
+
+.error-container {
+  .auth-container(@zega-error-txt-color; @zega-error-popup-border-color);
+}
+
+
+.app-success-auth-popup {
+  .auth-message(@zega-success-popup-background-color; @zega-success-txt-color; @zega-success-popup-border-color);
+}
+
+.success-container {
+  .auth-container(@zega-success-txt-color; @zega-success-popup-border-color);
+}
+
+
+.auth-message(@background; @txt-color; @border-color) {
+  background: @background;
+  color: @txt-color;
+  border: 1px solid @border-color;
+}
+
+.auth-container(@txt-color; @border-color) {
+  .fas, .fa, .far {
+    color: @txt-color;
+  }
+
+  .auth-message-code {
+    padding: 5px;
+    border-bottom: 1px solid @border-color;
+    font-weight: bold;
+
+    .auth-message-cross {
+      cursor: pointer;
+      float: right;
+    }
+  }
+
+  .auth-message-in-popup {
+    overflow-y: auto;
+    max-height: 140px;
+    padding: 5px;
+
+    .auth-message-heading {
+      font-weight: bold;
+    }
+
+    .show-more-auth-msg {
+      cursor: pointer;
+      padding-top: 5px;
+    }
+
+    .auth-description {
+      display: none;
+      padding: 5px 7px;
+      text-align: justify;
+      margin-top: 5px;
+      word-wrap: break-word;
+      .custom-box(transparent; @border-color; 2px; 1px; 'border-full');
+    }
+
+    .show-auth-description {
+      display: block;
+    }
+  }
+}

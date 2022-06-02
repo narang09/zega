@@ -1,0 +1,17 @@
+<div class="p-3">
+  <div class="row mb-3">
+    <div class="col-5 common-heading"><!-- heading goes here--></div>
+    <div class="common-primary-action-bar col-7">
+      <button type="button" class="common-action-btn" (click)="refreshDataGrid()"> Refresh </button>
+    </div>
+  </div>
+  <zega-data-grid [grid]="gridName"
+                  selectionMode="none"
+                  gridCompId="auditLogListingGridId"
+                  [hasAdvancedFilter]="true"
+                  [enableExportExcel]="true"
+                  [requestRefresh]="refreshGrid">
+
+  </zega-data-grid>
+
+</div>

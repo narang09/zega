@@ -1,0 +1,24 @@
+<aside>
+  <mat-nav-list>
+    <div class="zega-nav-logo m-auto mb-3">
+      <img class="img-fluid" src="../../../assets/images/ZegaLogoSideNav.png" />
+    </div>
+    <hr />
+    <a [routerLink]="menu.Link" *ngFor="let menu of menuList" routerLinkActive="menu-item-active" class="zega-nav-menu-item">
+      <div class="zega-nav-icon">
+        <i [ngClass]="menu.FAIcon"></i>
+      </div>
+      <span class="zega-nav-menu-name">
+        {{menu.DisplayName}}
+      </span>
+    </a>
+
+    <div class="zega-nav-menu-item logout-menu-item" (click)="logOutUser()">
+      <div class="zega-nav-icon">
+        <i class="fas fa-sign-out-alt"></i>
+      </div>
+      <span class="zega-nav-menu-name"> LogOut </span>
+    </div>
+
+  </mat-nav-list>
+</aside>

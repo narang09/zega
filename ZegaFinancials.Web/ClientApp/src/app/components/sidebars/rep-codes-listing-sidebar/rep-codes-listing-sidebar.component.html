@@ -1,0 +1,50 @@
+<div class="common-wide-side-panel">
+  <div class="common-sidebar-header ">
+    Rep Codes Listing
+  </div>
+
+  <div class="common-sidebar-content ">
+    <form class="" [formGroup]="repCodeForm" (ngSubmit)="submiRepCodeForm()">
+      <div class="row common-margin-0">
+        <div class="form-group col-2 common-padding-2">
+          <mat-select formControlName="Type" id="Type" class="common-select" placeholder="Type">
+            <mat-option *ngFor="let item of repCodesDropdown | enumsToArray" [value]="item.Value">
+              {{item.Key}}
+            </mat-option>
+          </mat-select>
+        </div>
+
+        <div class="form-group col-5 common-padding-2">
+          <input type="text" formControlName="Code" id="Code" class="common-input" placeholder="Rep Code" />
+          <div class="common-input-error-block">
+            <span *ngIf="repCodeForm.get('Code')?.invalid && ( repCodeForm.get('Code')?.dirty || repCodeForm.get('Code')?.touched)">
+              <span *ngIf="repCodeForm.get('Code')?.hasError('required')">This is required!</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group col-5 common-padding-2">
+          <button type="submit" class="common-action-btn" [disabled]="!repCodeForm.valid"> {{repCodeId > 0 ? 'Update': 'Add'}}</button>
+          <button type="button" class="common-action-btn" (click)="deleteSeletedRepCodes()" [disabled]="selectedRepCodes.length == 0 || repCodeId > 0"> Delete </button>
+          <button type="button" class="common-action-btn" (click)="editRepCode()" [disabled]="selectedRepCodes.length != 1"> Edit </button>
+        </div>
+      </div>
+    </form>
+    <zega-data-grid [grid]="gridName"
+                    selectionMode="multiple"
+                    gridCompId="repCodeListingSidebarGridId"
+                    [requestRefresh]="refreshGrid"
+                    [enableColumnChooser]="false"
+                    [requireSelectionOverPages]="true"
+                    [preSelectedRows]="selectedRepCodes"
+                    gridParent="sidebar"
+                    (gridRowsSelected)="gridRowsSelectedCallback($event)">
+    </zega-data-grid>
+
+  </div>
+  <div class="common-sidebar-action-bar">
+    <button type="button" class="common-action-btn" (click)="cancel()"> Close </button>
+  </div>
+
+</div>
+<div class="overlay modal-backdrop"></div>

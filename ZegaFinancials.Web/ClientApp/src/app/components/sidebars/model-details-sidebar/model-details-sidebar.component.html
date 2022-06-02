@@ -1,0 +1,87 @@
+<div class="common-wide-side-panel">
+  <div class="common-sidebar-header ">
+    {{isBlendModel ? 'Blended Model Details': 'Model Details'}}
+  </div>
+  <form class="" [formGroup]="modelForm" (ngSubmit)="submitModelForm()">
+
+    <div class="common-sidebar-content ">
+      <div class="">
+
+        <div class="form-group col-12">
+          <label for="Name" class="common-input-label">Name</label>
+          <input type="text" formControlName="Name" id="Name" class="common-input" placeholder="Name" />
+          <div class="common-input-error-block">
+            <span *ngIf="modelForm.get('Name')?.invalid && ( modelForm.get('Name')?.dirty || modelForm.get('Name')?.touched)">
+              <span *ngIf="modelForm.get('Name')?.hasError('required')">This field is required!</span>
+              <span *ngIf="modelForm.get('Name')?.hasError('maxlength')">This field should have less than 100 Characters!</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group col-12">
+          <label for="Description" class="common-input-label">Description</label>
+          <input type="text" formControlName="Description" id="Description" class="common-input" placeholder="Description" />
+          <div class="common-input-error-block">
+            <span *ngIf="modelForm.get('Description')?.invalid && ( modelForm.get('Description')?.dirty || modelForm.get('Description')?.touched)">
+              <span *ngIf="modelForm.get('Description')?.hasError('required')">This field is required!</span>
+              <span *ngIf="modelForm.get('Description')?.hasError('maxlength')">This field should have less than 250 Characters!</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group col-12" *ngIf="!isBlendModel">
+          <label for="Strategies" class="common-input-label">Strategies</label>
+          <mat-select id="Strategies" formControlName="Strategies" class="common-select" multiple>
+            <mat-option *ngFor="let item of strategiesDropdown" [value]="item.id">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </div>
+
+        <div class="form-group col-12" *ngIf="!isBlendModel">
+          <label for="Sleeve" class="common-input-label">Add Sleeve</label>
+          <mat-select id="Sleeve" formControlName="UISleeves" class="common-select" multiple>
+            <mat-option *ngFor="let item of sleevesDropdown" [value]="item">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </div>
+
+        <div class="form-group col-12">
+          <label class="common-input-label">Total Allocation : {{AlloctionsTotal |  number:'1.2-2'}} %</label>
+          &nbsp; &nbsp; &nbsp;
+          <button *ngIf="!isBlendModel" type="button" class="common-action-btn" [disabled]="!modelForm.get('UISleeves')?.value?.length" (click)="addSleeve()"> Add </button>
+          <button *ngIf="!isBlendModel" type="button" class="common-action-btn" [disabled]="!selectedModelSleeveIds.length" (click)="deleteSleeves()"> Delete </button>
+        </div>
+
+      </div>
+
+      <zega-data-grid [grid]="modelSubGridName"
+                      [overrideDataAPI]="true"
+                      [gridDataAPICall]="getModelSleeves"
+                      [enablePagination]="false"
+                      [enableFilters]="false"
+                      sortingMode="single"
+                      [enableQuickSearch]="false"
+                      [enableColumnChooser]="false"
+                      [enableEditing]="true"
+                      [gridDataEditCall]="editGridCallback"
+                      gridParent="section"
+                      selectionMode="multiple"
+                      gridCompId="modelSubGridId"
+                      [requestRefresh]="refreshModelSleevGrid"
+                      (gridRowsSelected)="gridRowsSelectedCallback($event)">
+
+      </zega-data-grid>
+
+    </div>
+
+    <div class="common-sidebar-action-bar">
+      <button type="submit" class="common-action-btn" [disabled]="!modelForm.valid"> Save </button>
+      <button type="button" class="common-action-btn" (click)="cancel()"> Cancel </button>
+    </div>
+
+  </form>
+
+</div>
+<div class="overlay modal-backdrop"></div>

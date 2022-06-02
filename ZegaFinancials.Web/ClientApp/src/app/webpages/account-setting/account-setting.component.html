@@ -1,0 +1,86 @@
+
+<div class="user-setting-container pl-3 pr-3">
+  <form [formGroup]="accountSettingForm" (ngSubmit)="submitAccountSettingForm()">
+
+    <h2 class="common-heading mt-3">User Account Settings</h2>
+
+    <div class="form-group form-row">
+      <div class="col-6">
+        <label for="fname">First Name *</label>
+        <input class="common-input" type="text" id="fname" formControlName="FirstName" />
+        <div class="common-input-error-block">
+          <span *ngIf="!accountSettingForm.get('FirstName')?.valid && accountSettingForm.get('FirstName')?.touched">
+            <span *ngIf="accountSettingForm.get('FirstName')?.hasError('required')">First Name is required!</span>
+          </span>
+        </div>
+      </div>
+      <div class="col-6">
+        <label for="lname">Last Name *</label>
+        <input class="common-input" type="text" id="lname" formControlName="LastName" />
+        <div class="common-input-error-block">
+          <span *ngIf="!accountSettingForm.get('LastName')?.valid && accountSettingForm.get('LastName')?.touched">
+            <span *ngIf="accountSettingForm.get('LastName')?.hasError('required')">Last Name is required!</span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group form-row">
+      <div class="col-6">
+        <label for="email">Email *</label>
+        <input class="common-input" type="email" id="email" formControlName="Email" />
+        <div class="common-input-error-block">
+          <span *ngIf="!accountSettingForm.get('Email')?.valid && accountSettingForm.get('Email')?.touched">
+            <span *ngIf="accountSettingForm.get('Email')?.hasError('required')">Email is required!</span>
+          </span>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-row">
+          <div class="col-2">
+            <label for="CountryCode">Code *</label>
+            <mat-select  id="CountryCode" class="common-select" formControlName="CountryCode">
+              <mat-option *ngFor="let item of countriesDropdown | enumsToArray" [value]="item.Value">
+                {{item.Key}}
+              </mat-option>
+            </mat-select>
+          </div>
+          <div class="col-10">
+            <label for="pnum">Phone Number *</label>
+            <input class="common-input" type="tel" id="pnum" formControlName="PhoneNo" maxlength="10" />
+            <div class="common-input-error-block">
+              <span *ngIf="!accountSettingForm.get('PhoneNo')?.valid && accountSettingForm.get('PhoneNo')?.touched">
+                <span *ngIf="accountSettingForm.get('PhoneNo')?.hasError('required')">Phone Number is required!</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group form-row">
+      <div class="col-6">
+        <label for="comp">Company</label>
+        <input class="common-input" type="text" id="comp" formControlName="Company" />
+        <div class="common-input-error-block">
+          <span *ngIf="!accountSettingForm.get('Company')?.valid && accountSettingForm.get('Company')?.touched">
+            <span *ngIf="accountSettingForm.get('Company')?.hasError('required')">Company name is required!</span>
+          </span>
+        </div>
+      </div>
+      <div class="col-6">
+        <label for="desg">Designation</label>
+        <input class="common-input" type="text" id="desg" formControlName="Designation" />
+        <div class="common-input-error-block">
+          <span *ngIf="!accountSettingForm.get('Designation')?.valid && accountSettingForm.get('Designation')?.touched">
+            <span *ngIf="accountSettingForm.get('Designation')?.hasError('required')">Designation is required!</span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group form-row">
+      <div class="col-6">
+        <span class=" pr-2"><button class="common-action-btn w-25" type="submit" [disabled]="!accountSettingForm.valid">Update </button></span>
+        <span><button class="common-action-btn common-plain-btn w-25" (click)="cancel()" type="reset">Cancel </button></span>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,62 @@
+<div class="common-wide-side-panel">
+  <div class="common-sidebar-header ">
+    Blend Model
+  </div>
+  <form class="" [formGroup]="blendModelForm" (ngSubmit)="submitBlendModelForm()">
+
+    <div class="common-sidebar-content ">
+      <div class="">
+
+        <div class="form-group col-12">
+          <label for="Name" class="common-input-label">Name</label>
+          <input type="text" id="Name" class="common-input" disabled [value]="getBlendedModelName"/>
+        </div>
+
+        <div class="form-group col-12">
+          <label for="Description" class="common-input-label">Description</label>
+          <input type="text" formControlName="Description" id="Description" class="common-input" placeholder="Description" />
+          <div class="common-input-error-block">
+            <span *ngIf="blendModelForm.get('Description')?.invalid && ( blendModelForm.get('Description')?.dirty || blendModelForm.get('Description')?.touched)">
+              <span *ngIf="blendModelForm.get('Description')?.hasError('required')">This field is required!</span>
+              <span *ngIf="blendModelForm.get('Description')?.hasError('maxlength')">This field should have less than 250 Characters!</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group col-12">
+          <label class="common-input-label">Total Allocation : {{AlloctionsTotal |  number:'1.2-2'}} %</label>
+          &nbsp; &nbsp; &nbsp;
+          <button type="button" class="common-action-btn" (click)="deleteModels()" [disabled]="!selectedModelIds.length"> Delete </button>
+        </div>
+
+      </div>
+
+      <zega-data-grid [grid]="blendModelGridName"
+                      [overrideDataAPI]="true"
+                      [gridDataAPICall]="getSubModels"
+                      [enablePagination]="false"
+                      [enableFilters]="false"
+                      sortingMode="single"
+                      [enableQuickSearch]="false"
+                      [enableColumnChooser]="false"
+                      gridParent="section"
+                      selectionMode="multiple"
+                      [enableEditing]="true"
+                      [gridDataEditCall]="editGridCallback"
+                      gridCompId="blendModelGridId"
+                      [requestRefresh]="refreshBlendModelGrid"
+                      (gridRowsSelected)="gridRowsSelectedCallback($event)">
+
+      </zega-data-grid>
+
+    </div>
+
+    <div class="common-sidebar-action-bar">
+      <button type="submit" class="common-action-btn" [disabled]="!blendModelForm.valid"> Save </button>
+      <button type="button" class="common-action-btn" (click)="cancel()"> Cancel </button>
+    </div>
+
+  </form>
+
+</div>
+<div class="overlay modal-backdrop"></div>

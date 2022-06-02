@@ -1,0 +1,247 @@
+
+<div class="p-4" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+  <button class="close mr-n3 mt-n3" mat-button (click)="cancelAdvFilter()"><i class="fa-times-circle far"></i></button>
+  <div class="common-heading mb-0" mat-dialog-title>
+    Advanced Filter
+  </div>
+  <hr class="mt-0" />
+  <div mat-dialog-content class="adv-filter-content">
+    <div class="row">
+      <div class="form-group col-4">
+        <mat-select name="Column" id="Column" class="common-select" [(ngModel)]="SelectedColumn" placeholder="Grid Column">
+          <mat-option *ngFor="let item of GridColumns" [value]="item">
+            {{item.DisplayName}}
+          </mat-option>
+        </mat-select>
+      </div>
+    </div>
+
+    <div *ngIf="SelectedColumn">
+      <div [ngSwitch]="SelectedColumn.Type">
+
+        <!-- String Type -->
+        <div class="row mb-3" *ngSwitchCase="GridColumnTypes.String">
+
+          <div class="col-4">
+            <mat-select name="StringConditionType" id="StringConditionType" class="common-select" [(ngModel)]="SelectedFilterExpression.StringConditionType" placeholder="String Condition" (ngModelChange)="resetFilterExpressionValues($event)">
+              <mat-option *ngFor="let item of StringConditionTypes | enumsToArray" [value]="item.Value">
+                {{item.Key}}
+              </mat-option>
+            </mat-select>
+          </div>
+
+          <div class="col-5">
+            <input type="text" name="StringConditionTypeValue" id="StringConditionTypeValue" [(ngModel)]="SelectedFilterExpression.Values.Value1" class="common-input" placeholder="Search Value" />
+          </div>
+
+          <div class="col-3">
+            <button class="btn common-action-btn-flat rounded-pill" (click)="addFilterExpression(true)"> Add </button>
+          </div>
+
+
+        </div>
+        <!-- String Type Ends -->
+        <!-- Number Type -->
+        <div *ngSwitchCase="GridColumnTypes.Number">
+          <div class="row mb-3">
+            <div class="col-4">
+              <mat-select name="NumericConditionType" id="NumericConditionType" class="common-select" [(ngModel)]="SelectedFilterExpression.NumericConditionType" placeholder="Number Condition" (ngModelChange)="resetFilterExpressionValues($event)">
+                <mat-option *ngFor="let item of NumericConditionTypes | enumsToArray" [value]="item.Value">
+                  {{item.Key}}
+                </mat-option>
+              </mat-select>
+            </div>
+
+            <div class="col-5">
+              <span [ngSwitch]="SelectedFilterExpression.NumericConditionType">
+                <span *ngSwitchCase="NumericConditionTypes.Equals">
+                  <input type="text" name="NumericConditionTypeEqual" id="NumericConditionTypeEqual" [(ngModel)]="SelectedFilterExpression.Values.Value1" class="common-input" placeholder="Search Value" />
+                </span>
+                <span *ngSwitchCase="NumericConditionTypes.GreaterThanOrEqual">
+                  <input type="text" name="NumericConditionTypeGreaterThan" id="NumericConditionTypeGreaterThan" [(ngModel)]="SelectedFilterExpression.Values.Value2" class="common-input" placeholder="Search Value" />
+                </span>
+                <span *ngSwitchCase="NumericConditionTypes.LessThanOrEqual">
+                  <input type="text" name="NumericConditionTypeLessThan" id="NumericConditionTypeLessThan" [(ngModel)]="SelectedFilterExpression.Values.Value3" class="common-input" placeholder="Search Value" />
+                </span>
+                <span *ngSwitchCase="NumericConditionTypes.RangeBetween">
+                  <span class="row">
+                    <span class="col-6">
+                      <input type="text" name="NumericConditionTypeRangeBetweenFrom" id="NumericConditionTypeRangeBetweenFrom" [(ngModel)]="SelectedFilterExpression.Values.Value4" class="common-input" placeholder="Starting Value" />
+                    </span>
+                    <span class="col-6">
+                      <input type="text" name="NumericConditionTypeRangeBetweenTo" id="NumericConditionTypeRangeBetweenTo" [(ngModel)]="SelectedFilterExpression.Values.Value5" class="common-input" placeholder="Ending Value" />
+                    </span>
+                  </span>
+                </span>
+                <span *ngSwitchCase="NumericConditionTypes.DoesNotEqual">
+                  <input type="text" name="NumericConditionTypeNotEqual" id="NumericConditionTypeNotEqual" [(ngModel)]="SelectedFilterExpression.Values.Value1" class="common-input" placeholder="Search Value" />
+                </span>
+              </span>
+            </div>
+
+            <div class="col-3">
+              <button class="btn common-action-btn-flat rounded-pill" (click)="addFilterExpression(true)"> Add </button>
+            </div>
+
+          </div>
+        </div>
+        <!-- Number Type Ends -->
+        <!-- Date Type -->
+        <div *ngSwitchCase="GridColumnTypes.DateTime">
+          <div class="row mb-3">
+            <div class="col-4">
+              <mat-select name="DateTimeConditionType" id="DateTimeConditionType" class="common-select" [(ngModel)]="SelectedFilterExpression.DateTimeConditionType" placeholder="Date Condition" (ngModelChange)="resetFilterExpressionValues($event)">
+                <mat-option *ngFor="let item of DateTimeConditionTypes | enumsToArray" [value]="item.Value">
+                  {{item.Key}}
+                </mat-option>
+              </mat-select>
+            </div>
+
+            <div class="col-5">
+              <span [ngSwitch]="SelectedFilterExpression.DateTimeConditionType">
+                <span *ngSwitchCase="DateTimeConditionTypes.WithInLast">
+                  <input type="text" name="DateTimeConditionTypeWithInLast" id="DateTimeConditionTypeWithInLast" [(ngModel)]="SelectedFilterExpression.Values.Value1" class="common-input" placeholder="Days" />
+                </span>
+                <span *ngSwitchCase="DateTimeConditionTypes.MoreThan">
+                  <input type="text" name="DateTimeConditionTypeMoreThan" id="DateTimeConditionTypeMoreThan" [(ngModel)]="SelectedFilterExpression.Values.Value2" class="common-input" placeholder="Days" />
+                </span>
+                <span *ngSwitchCase="DateTimeConditionTypes.Between">
+                  <span class="row">
+                    <span class="col-10">
+                      <mat-date-range-input [rangePicker]="picker">
+                        <input matStartDate ame="DateTimeConditionTypeBetweenFrom" id="DateTimeConditionTypeBetweenFrom" [(ngModel)]="SelectedFilterExpression.DateConfig.StartDate" class="" placeholder="Starting Date">
+                        <input matEndDate name="DateTimeConditionTypeBetweenTo" id="DateTimeConditionTypeBetweenTo" [(ngModel)]="SelectedFilterExpression.DateConfig.EndDate" class="" placeholder="Ending Date">
+                      </mat-date-range-input>
+                    </span>
+                    <span class="col-2">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-date-range-picker #picker></mat-date-range-picker>
+                    </span>
+                  </span>
+                </span>
+                <span *ngSwitchCase="DateTimeConditionTypes.InRange">
+                  <span class="row">
+                    <span class="col-6">
+                      <input type="text" name="DateTimeConditionTypeInRangeFrom" id="DateTimeConditionTypeInRangeFrom" [(ngModel)]="SelectedFilterExpression.Values.Value4" class="common-input" placeholder="Starting Days" />
+                    </span>
+                    <span class="col-6">
+                      <input type="text" name="DateTimeConditionTypeInRangeTo" id="DateTimeConditionTypeInRangeTo" [(ngModel)]="SelectedFilterExpression.Values.Value5" class="common-input" placeholder="Ending Days" />
+                    </span>
+                  </span>
+                </span>
+              </span>
+            </div>
+
+            <div class="col-3">
+              <button class="btn common-action-btn-flat rounded-pill" (click)="addFilterExpression(true)"> Add </button>
+            </div>
+
+          </div>
+        </div>
+        <!-- Date Type Ends -->
+        <!-- List Type -->
+        <div *ngSwitchCase="GridColumnTypes.List">
+          <div class="row mb-3">
+            <div class="col-4">
+              <mat-select name="ListSelectValues" id="ListSelectValues" class="common-select" [(ngModel)]="SelectedFilterExpression.SelectedValues" placeholder="Select Values" (ngModelChange)="resetFilterExpressionValues($event)" multiple>
+                <mat-option *ngFor="let item of SelectedColumn.DropdownList | backendEnumToArray" [value]="item.Value">
+                  {{item.Key}}
+                </mat-option>
+              </mat-select>
+            </div>
+
+            <div class="col-5">
+              <div class="row">
+                <div class="col-6">
+                  <mat-select name="ListStringConditionType" id="ListStringConditionType" class="common-select" [(ngModel)]="SelectedFilterExpression.StringConditionType" placeholder="String Condition" (ngModelChange)="resetFilterExpressionValues($event)">
+                    <mat-option *ngFor="let item of StringConditionTypes | enumsToArray" [value]="item.Value">
+                      {{item.Key}}
+                    </mat-option>
+                  </mat-select>
+                </div>
+
+                <div class="col-6">
+                  <input type="text" name="ListStringConditionTypeValue" id="ListStringConditionTypeValue" [(ngModel)]="SelectedFilterExpression.Values.Value1" class="common-input" placeholder="Search Value" />
+                </div>
+              </div>
+            </div>
+
+            <div class="col-3">
+              <button class="btn common-action-btn-flat rounded-pill" (click)="addFilterExpression(true)"> Add </button>
+            </div>
+
+          </div>
+        </div>
+        <!-- List Type Ends -->
+        <!-- Enum Type -->
+        <div *ngSwitchCase="GridColumnTypes.Enum">
+          <div class="row mb-3">
+            <div class="col-4">
+              <mat-select name="EnumSelectValues" id="EnumSelectValues" class="common-select" [(ngModel)]="SelectedFilterExpression.SelectedValues" placeholder="Select Values" (ngModelChange)="resetFilterExpressionValues($event)" multiple>
+                <mat-option *ngFor="let item of SelectedColumn.DropdownList | backendEnumToArray" [value]="item.Value">
+                  {{item.Key}}
+                </mat-option>
+              </mat-select>
+            </div>
+
+            <div class="col-5"> </div>
+
+            <div class="col-3">
+              <button class="btn common-action-btn-flat rounded-pill" (click)="addFilterExpression(true)"> Add </button>
+            </div>
+
+          </div>
+        </div>
+        <!-- Enum Type Ends -->
+        <!-- Bool Type -->
+        <div *ngSwitchCase="GridColumnTypes.Bool">
+          <div class="row mb-3">
+            <div class="col-4">
+              <mat-select name="EnumSelectValues" id="EnumSelectValues" class="common-select" [(ngModel)]="SelectedFilterExpression.SelectedValues" placeholder="Select Value" (ngModelChange)="resetFilterExpressionValues($event)">
+                <mat-option *ngFor="let item of SelectedColumn.DropdownList | backendEnumToArray" [value]="item.Value">
+                  {{item.Key}}
+                </mat-option>
+              </mat-select>
+            </div>
+
+            <div class="col-4"> </div>
+
+            <div class="col-3">
+              <button class="btn common-action-btn-flat rounded-pill" (click)="addFilterExpression(true)"> Add </button>
+            </div>
+
+          </div>
+        </div>
+        <!-- Bool Type Ends -->
+      </div>
+    </div>
+
+
+
+
+    <mat-chip-list #chipList aria-label="Filter Expressions">
+      <span *ngFor="let column of GridColumnsWithFilters">
+        <mat-chip *ngFor="let expression of column.FilterExpressions" [selectable]="false"
+                  [removable]="true" (removed)="removeFilterExpression(column, expression)">
+          {{getExpressionDescription(column, expression)}}
+          <i class="fas fa-times" matChipRemove></i>
+        </mat-chip>
+      </span>
+    </mat-chip-list>
+
+
+  </div>
+
+  <br class="clearfix" />
+  <hr class="mb-0" />
+
+  <div mat-dialog-actions>
+
+    <button class="btn common-action-btn rounded-pill" (click)="cancelAdvFilter()"> Cancel </button>
+    <button class="btn common-action-btn rounded-pill mr-3 ml-3" (click)="resetFilter()"> Reset </button>
+    <button class="btn common-action-btn rounded-pill" (click)="applyAdvFilter()"> Apply </button>
+  </div>
+
+
+</div>
+

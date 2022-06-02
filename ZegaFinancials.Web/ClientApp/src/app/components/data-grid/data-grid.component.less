@@ -1,0 +1,93 @@
+@import '../../../assets/less/variables.less';
+@import '../../../assets/less/common.less';
+
+@zega-col-visibility-width: ~ '300px'; // Width of all sidebars
+
+.grid-cell-active-user {
+  background-color: @zega-success-txt-color;
+  padding: 1px 5px;
+  color: @zega-white-color;
+  border-radius: @zega-small-border-radius;
+}
+
+.grid-cell-inactive-user {
+  background-color: @zega-error-txt-color;
+  padding: 1px 5px;
+  color: @zega-white-color;
+  border-radius: @zega-small-border-radius;
+}
+
+.dx-datagrid-headers {
+  color: @zega-white-color;
+  background-color: @zega-theme-base-color;
+}
+
+.grid-column-visibility-dropdown {
+  position: fixed;
+  width: @zega-col-visibility-width;
+  visibility: hidden;
+  padding: 0.4rem;
+  z-index: 10;
+  top: 0;
+  background-color: @zega-white-color;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid lightgray;
+  color: @zega-black-text-color;
+
+  .grid-column-visibility-header {
+    .common-heading;
+    text-align: center;
+
+    .grid-column-visibility-cross {
+      float: right;
+    }
+  }
+
+  .grid-column-visibility-row {
+    margin: 3px 0;
+
+    .grid-column-visibility-icon-container {
+      cursor: pointer;
+    }
+
+    .grid-column-visibility-name-container {
+      .common-noselect;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.data-grid-page-size-select {
+  .common-select;
+  width: 60px;
+}
+
+ngb-pagination ::ng-deep ul > li:not(.active) > a {
+  color: @zega-theme-base-color !important;
+}
+
+ngb-pagination ::ng-deep ul > li.active > a {
+  color: @zega-white-color !important;
+  background-color: @zega-theme-base-color !important;
+  border-color: @zega-theme-base-color !important;
+}
+
+.data-grid-paginator {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.grid-pagination-total {
+  display: inline-block;
+  padding-top: 10px;
+}
+.grid-selected-count {
+  display:inline-block;
+}
+.grid-total-row{
+    display:inline-block;
+    text-align:right;
+}

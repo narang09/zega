@@ -1,0 +1,40 @@
+<div class="common-side-panel">
+  <div class="common-sidebar-header ">
+    Sleeve Details
+  </div>
+  <form class="" [formGroup]="sleeveForm" (ngSubmit)="submitSleeveForm()">
+
+    <div class="common-sidebar-content ">
+      <div class="">
+        <div class="form-group col-12">
+          <label for="Name" class="common-input-label">Name</label>
+          <input type="text" formControlName="Name" id="Name" class="common-input" placeholder="Name" />
+          <div class="common-input-error-block">
+            <span *ngIf="sleeveForm.get('Name')?.invalid && ( sleeveForm.get('Name')?.dirty || sleeveForm.get('Name')?.touched)">
+              <span *ngIf="sleeveForm.get('Name')?.hasError('required')">This field is required!</span>
+              <span *ngIf="sleeveForm.get('Name')?.hasError('maxlength')">This field should have less than 100 Characters!</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group col-12">
+          <label for="Description" class="common-input-label">Description</label>
+          <input type="text" formControlName="Description" id="Description" class="common-input" placeholder="Description" />
+          <div class="common-input-error-block">
+            <span *ngIf="sleeveForm.get('Description')?.invalid && ( sleeveForm.get('Description')?.dirty || sleeveForm.get('Description')?.touched)">
+              <span *ngIf="sleeveForm.get('Description')?.hasError('required')">This field is required!</span>
+              <span *ngIf="sleeveForm.get('Description')?.hasError('maxlength')">This field should have less than 250 Characters!</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="common-sidebar-action-bar">
+      <button type="submit" class="common-action-btn" [disabled]="!sleeveForm.valid"> Save </button>
+      <button type="button" class="common-action-btn" (click)="cancel()"> Cancel </button>
+    </div>
+
+  </form>
+</div>
+<div class="overlay modal-backdrop"></div>

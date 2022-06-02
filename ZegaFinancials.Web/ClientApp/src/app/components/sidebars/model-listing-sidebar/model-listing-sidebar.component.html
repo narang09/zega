@@ -1,0 +1,40 @@
+<div class="common-wide-side-panel">
+  <div class="common-sidebar-header ">
+    Model Listing
+  </div>
+
+  <div class="common-sidebar-content ">
+    <zega-data-grid [grid]="gridName"
+                    selectionMode="multiple"
+                    gridCompId="modelListingSidebarGridId"
+                    [requestRefresh]="refreshGrid"
+                    [enableColumnChooser]="false"
+                    [requireSelectionOverPages]="true"
+                    gridParent="sidebar"
+                    [preSelectedRows]="selectedModels"
+                    [deSelectRowsManually]="deSelectRowsManually"
+                    (gridRowsSelected)="gridRowsSelectedCallback($event)">
+    </zega-data-grid>
+    <div>
+
+      <div class="common-section-heading">
+        Selected Models
+      </div>
+
+      <mat-chip-list #chipList aria-label="Selected Model">
+        <mat-chip *ngFor="let model of selectedModels" [selectable]="false"
+                  [removable]="true" (removed)="removeSelectedModel(model)">
+          {{model.name}}
+          <i class="fas fa-times" matChipRemove></i>
+        </mat-chip>
+      </mat-chip-list>
+
+    </div>
+
+  </div>
+  <div class="common-sidebar-action-bar">
+    <button type="button" class="common-action-btn" (click)="selectModels()"> Save </button>
+    <button type="button" class="common-action-btn" (click)="cancel()"> Cancel </button>
+  </div>
+</div>
+<div class="overlay modal-backdrop"></div>

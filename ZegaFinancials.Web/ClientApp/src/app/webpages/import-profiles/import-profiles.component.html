@@ -1,0 +1,64 @@
+<div class="p-2">
+  <mat-tab-group>
+    <mat-tab label="TD Ameritrade">
+      <form [formGroup]="importForm" (ngSubmit)="submitImportForm()">
+        <div class="container-fluid card pl-2 mb-2">
+
+          <div class="row mt-2 mb-2">
+            <div class="col-3">
+              <label for="Name">Profile Name</label>
+              <input class="common-input" type="text" Placeholder="Profile Name" id="Name" formControlName="Name" />
+            </div>
+            <div class="col-3">
+              <label for="Login"> Login Id </label>
+              <input class="common-input" type="text" id="Login" formControlName="Login" />
+            </div>
+            <div class="col-3">
+              <label for="Password"> Password</label>
+              <input class="common-input" type="password" id="Password" formControlName="Password" />
+            </div>
+            <div class="col-3 import-action-butn-section">
+              <button class="btn common-action-btn mr-2 rounded-pill" [disabled]="!importForm.valid" type="submit"> Save Settings </button>
+              <button class="btn common-action-btn mr-3 rounded-pill" type="button" (click)="runManualImport()"> Import Now </button>
+            </div>
+          </div>
+
+          <div class="row mt-2 mb-2">
+            <div class="col-3">
+              <label for="RepCodes">Select Rep Codes for Manual Import </label>
+              <mat-select multiple class="common-select" id="RepCodes" formControlName="RepCodes" (selectionChange)="onRepCodeChanged($event)">
+                <mat-checkbox class="select-all-checkbox" [checked]="allRepCodesSelected" (change)="toggleAllSelection($event)"> Select All </mat-checkbox>
+                <mat-option *ngFor="let code of AllRepCodes" [value]="code.id"> {{code.name}} </mat-option>
+              </mat-select>
+            </div>
+            <div class="col-3">
+              <label for="AutoImport"> Enable AutoImport  </label>
+              <section>
+                <mat-checkbox id="AutoImport" formControlName="AutoImport" (change)="onAutoImportChange($event)"> </mat-checkbox>
+              </section>
+            </div>
+            <div class="col-3">
+              <label for="SchedulerImportTime"> Time of AutoImport</label>
+              <input class="common-input" type="time" id="SchedulerImportTime" formControlName="SchedulerImportTime" />
+            </div>
+            <div class="col-3 import-action-butn-section">
+              <button class="btn common-action-btn mr-3 rounded-pill" type="button" (click)="addRepCodesBatch()"> Add Batch </button>
+              <button class="btn common-action-btn mr-3 rounded-pill" type="button" (click)="editRepCodesBatch()" [disabled]="selectedRepCodeBatch == -1"> Edit Batch </button>
+            </div>
+          </div>
+
+          <div class="rep-codes-batch-section mt-2 mb-2 pl-2 pr-2">
+            <mat-chip-list #chipList aria-label="Auto Import Batches" class="p-2" *ngIf="repCodeBatches.length">
+              <mat-chip *ngFor="let batch of repCodeBatches; let ind = index" [selectable]="true" (click)="repCodesBatchClicked(ind)" [selected]="ind === selectedRepCodeBatch" [removable]="true" (removed)="removeAutoImportBatch(ind)">
+                Batch - {{ind + 1}} [{{getBatchRepCodes(batch)}}]
+                <i class="fas fa-times" matChipRemove></i>
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+
+        </div>
+      </form>
+
+    </mat-tab>
+  </mat-tab-group>
+</div>

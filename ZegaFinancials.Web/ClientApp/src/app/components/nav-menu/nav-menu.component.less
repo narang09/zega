@@ -1,0 +1,41 @@
+@import '../../../assets/less/variables.less';
+
+.zega-nav-logo {
+  width: 100px;
+}
+
+.zega-nav-icon {
+  font-size: 18px;
+}
+
+.zega-nav-menu-item {
+  cursor: pointer;
+  display: block;
+  text-align: center;
+  margin: 1vh 0;
+  border-radius: @zega-border-radius;
+  padding: 5px 3px;
+  border: none;
+  font-size: @zega-base-font-size-m2;
+  font-weight: bold;
+  color: @zega-btn-color;
+
+  &.menu-item-active {
+    background-color: @zega-btn-color;
+    color: @zega-white-color;
+  }
+
+  &.logout-menu-item {
+    margin-bottom: 0px
+  }
+
+  &:hover:not(.menu-item-active) {
+    background-color: @zega-navHoverBG-light-color;
+    color: #000;
+  }
+}
+
+.zega-name {
+  text-align: center;
+  color: @zega-theme-base-color;
+}

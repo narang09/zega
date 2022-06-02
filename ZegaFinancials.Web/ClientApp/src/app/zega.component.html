@@ -1,0 +1,38 @@
+
+
+<div class="left-menu-parent col-1" *ngIf="!isLoginView" [ngClass]="{'layoutshadow layoutshadow--roundaside p-2' : !isLoginView}">
+  <zega-nav-menu *ngIf="!isLoginView"></zega-nav-menu>
+</div>
+
+<div [ngClass]="{'col-11' : !isLoginView}">
+  <div [ngClass]="{'layoutshadow layoutshadow--roundmain' : !isLoginView}">
+    <router-outlet>
+      <zega-loader> </zega-loader>
+
+      <div *ngIf="!isLoginView" class="pagetitle">
+        <mat-toolbar class="header p-0">
+
+          <div class="col-8 pl-2">
+            {{pageTitle}}
+          </div>
+
+          <div class="col-4 header-profile pr-1">
+            Welcome {{userName}} 
+            <img class="header-user-profile-img" *ngIf="loadUserImage" id="headerUserProfileImage" [src]="imageBase64URL ? imageBase64URL : '../../assets/images/ZegaUserProfile.jpg'" alt="Header-Profile Picture">
+            <button class="right-spacer" (click)="navigationToSettings()"> Settings </button>
+          </div>
+
+        </mat-toolbar>
+      </div>
+
+      <zega-auth-message></zega-auth-message>
+
+    </router-outlet>
+    <zega-footer></zega-footer>
+  </div>
+</div>
+
+
+
+
+

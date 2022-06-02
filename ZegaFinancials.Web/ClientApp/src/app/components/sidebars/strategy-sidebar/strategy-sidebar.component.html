@@ -1,0 +1,71 @@
+<div class="common-wide-side-panel">
+  <div class="common-sidebar-header ">
+    Strategy Details
+  </div>
+  <form class="" [formGroup]="strategyForm" (keydown.enter)="$event.preventDefault()" (ngSubmit)="submitStrategyForm()">
+
+    <div class="common-sidebar-content ">
+      <div class="">
+        <div class="form-group col-12">
+          <label for="Name" class="common-input-label">Name</label>
+          <input type="text" formControlName="Name" id="Name" class="common-input" placeholder="Name" />
+          <div class="common-input-error-block">
+            <span *ngIf="strategyForm.get('Name')?.invalid && ( strategyForm.get('Name')?.dirty || strategyForm.get('Name')?.touched)">
+              <span *ngIf="strategyForm.get('Name')?.hasError('required')">This field is required!</span>
+              <span *ngIf="strategyForm.get('Name')?.hasError('maxlength')">This field should have less than 100 Characters!</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group col-12">
+          <label for="Description" class="common-input-label">Description</label>
+          <input type="text" formControlName="Description" id="Description" class="common-input" placeholder="Description" />
+          <div class="common-input-error-block">
+            <span *ngIf="strategyForm.get('Description')?.invalid && ( strategyForm.get('Description')?.dirty || strategyForm.get('Description')?.touched)">
+              <span *ngIf="strategyForm.get('Description')?.hasError('required')">This field is required!</span>
+              <span *ngIf="strategyForm.get('Description')?.hasError('maxlength')">This field should have less than 250 Characters!</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <zega-data-grid *ngIf="loadGrid"
+                        [grid]="gridName"
+                        selectionMode="multiple"
+                        gridCompId="modelListingSidebarGridId"
+                        [requestRefresh]="refreshGrid"
+                        [enableColumnChooser]="false"
+                        [requireSelectionOverPages]="true"
+                        gridParent="section"
+                        [preSelectedRows]="selectedModels"
+                        [deSelectRowsManually]="deSelectRowsManually"
+                        (gridRowsSelected)="gridRowsSelectedCallback($event)">
+        </zega-data-grid>
+
+        <div>
+
+          <div class="common-section-heading">
+            Selected Models
+          </div>
+
+          <mat-chip-list #chipList aria-label="Selected Model">
+            <mat-chip *ngFor="let model of selectedModels" [selectable]="false"
+                      [removable]="true" (removed)="removeSelectedModel(model)">
+              {{model.name}}
+              <i class="fas fa-times" matChipRemove></i>
+            </mat-chip>
+          </mat-chip-list>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="common-sidebar-action-bar">
+      <button type="submit" class="common-action-btn" [disabled]="!strategyForm.valid"> Save </button>
+      <button type="button" class="common-action-btn" (click)="cancel()"> Cancel </button>
+    </div>
+
+  </form>
+</div>
+<div class="overlay modal-backdrop"></div>

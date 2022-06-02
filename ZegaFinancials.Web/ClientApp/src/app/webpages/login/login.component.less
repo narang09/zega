@@ -1,0 +1,38 @@
+@import '../../../assets/less/variables.less';
+
+.login-center-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 800px;
+}
+
+.login-container {
+  background: @zega-theme-base-color;
+  border-radius: @zega-large-border-radius;
+  -webkit-box-shadow: 0px 10px 40px -10px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: 0px 10px 40px -10px rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 10px 40px -10px rgba(0, 0, 0, 0.7);
+}
+
+.zega-login-logo {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 70%;
+    margin: 20px;
+  }
+}
+
+.login-info-panel {
+  background: @zega-white-color;
+  border-radius: @zega-large-border-radius;
+  padding: @zega-large-border-radius;
+}
+.pwd i {
+  cursor: pointer;
+}

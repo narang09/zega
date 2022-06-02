@@ -1,0 +1,38 @@
+<div class="p-3">
+  <div class="row mb-3">
+    <div class="col-5 common-heading"><!-- heading goes here--></div>
+    <div class="common-primary-action-bar col-7">
+      <button type="button" class="common-action-btn" *ngIf="IsAdmin" (click)="addAccount()"> Add Account </button>
+      <button type="button" class="common-action-btn" [disabled]="selectedAccountIds.length != 1" (click)="editAccount()"> Edit Account </button>
+      <button type="button" class="common-action-btn" [disabled]="selectedAccountIds.length <= 1" (click)="bulkEditAcounts()"> Bulk Edit </button>
+      <button type="button" class="common-action-btn" *ngIf="IsAdmin" [disabled]="!selectedAccountIds.length" (click)="deleteAccounts()"> Delete </button>
+      <button type="button" class="common-action-btn" (click)="refreshDataGrid()"> Refresh </button>
+      <button type="button" class="common-action-btn" (click)="importFileInput.click()"> Upload Import </button>
+    </div>
+  </div>
+
+  <input style="display: none" type="file" (change)="processUploadedFile($event)" #importFileInput accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+
+  <zega-data-grid [grid]="gridName"
+                  selectionMode="multiple"
+                  gridCompId="AccountListingGridId"
+                  [hasAdvancedFilter]="true"
+                  [requestRefresh]="refreshGrid"
+                  [enableExportExcel]="true"
+                  [enableRowsDblClick]="true"
+                  [requireSelectionOverPages]="true"
+                  [preSelectedRows]="selectedAccounts"
+                  (gridRowsDblClicked)="gridRowsDblClickedCallback($event)"
+                  (gridRowsSelected)="gridRowsSelectedCallback($event)">
+
+  </zega-data-grid>
+
+  <zega-bulk-edit-sidebar *ngIf="showBulkEditSidebar"
+                          [selectedIds]="selectedAccountIds"
+                          [gridName]="gridName"
+                          (confirmCallback)="bulkEditSidebarCallback($event)"
+                          (cancelCallback)="bulkEditSidebarCallback($event)">
+
+  </zega-bulk-edit-sidebar>
+
+</div>

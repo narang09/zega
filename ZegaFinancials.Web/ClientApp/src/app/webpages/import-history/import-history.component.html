@@ -1,0 +1,18 @@
+<div class="p-3">
+  <div class="row mb-3">
+    <div class="col-5 common-heading"><!-- heading goes here--></div>
+    <div class="common-primary-action-bar col-7">
+      <button type="button" class="common-action-btn" (click)="refreshDataGrid()"> Refresh </button>
+    </div>
+  </div>
+
+  <zega-data-grid [grid]="gridName"
+                  selectionMode="none"
+                  [requestRefresh]="refreshGrid"
+                  [enableColumnChooser]="false"
+                  [enableQuickSearch]="false"
+                  gridCompId="importHistory">
+
+  </zega-data-grid>
+
+</div>

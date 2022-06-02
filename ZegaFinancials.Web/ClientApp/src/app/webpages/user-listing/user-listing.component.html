@@ -1,0 +1,41 @@
+<div class="p-3">
+  <div class="row mb-3">
+    <div class="col-5 common-heading"><!-- heading goes here--></div>
+    <div class="common-primary-action-bar col-7">
+      <button type="button" class="common-action-btn" (click)="refreshDataGrid()"> Refresh   </button>
+      <button type="button" class="common-action-btn" (click)="addAdvisor()"> Create </button>
+      <button type="button" class="common-action-btn" [disabled]="selectedUserIds.length <= 1" (click)="bulkEditAdvisors()"> Bulk Edit </button>
+      <button type="button" class="common-action-btn" [disabled]="selectedUserIds.length != 1" (click)="viewAdvisor()"> View/Edit </button>
+      <button type="button" class="common-action-btn" [disabled]="!selectedUserIds.length" (click)="deleteAdvisors()"> Delete </button>
+      <button type="button" class="common-action-btn" (click)="openRepCodesListingSidebar()"> RepCodes </button>
+    </div>
+  </div>
+
+  <zega-data-grid [grid]="gridName"
+                  selectionMode="multiple"
+                  gridCompId="advisorsListingGridId"
+                  [requestRefresh]="refreshGrid"
+                  [hasAdvancedFilter]="true"
+                  [enableExportExcel]="true"
+                  [enableRowsDblClick]="true"
+                  [requireSelectionOverPages]="true"
+                  [preSelectedRows]="selectedUsers"
+                  (gridRowsDblClicked)="gridRowsDblClickedCallback($event)"
+                  (gridRowsSelected)="gridRowsSelectedCallback($event)">
+
+  </zega-data-grid>
+
+  <zega-bulk-edit-sidebar *ngIf="showBulkEditSidebar"
+                          [selectedIds]="selectedUserIds"
+                          [gridName]="gridName"
+                          (confirmCallback)="bulkEditSidebarCallback($event)"
+                          (cancelCallback)="bulkEditSidebarCallback($event)">
+
+  </zega-bulk-edit-sidebar>
+
+  <zega-rep-codes-listing-sidebar *ngIf="showRepCodesListingSidebar"
+                          (cancelCallback)="closeRepCodesSidebar()">
+
+  </zega-rep-codes-listing-sidebar>
+
+</div>

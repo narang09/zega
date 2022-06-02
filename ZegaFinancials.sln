@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZegaFinancials.Web", "ZegaFinancials.Web\ZegaFinancials.Web.csproj", "{F1D382D6-716D-4323-9625-932D33E1EF16}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DE94FD66-A898-49BC-9677-68179C231BD4} = {DE94FD66-A898-49BC-9677-68179C231BD4}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZegaFinancials.Business", "ZegaFinancials.Business\ZegaFinancials.Business.csproj", "{1C6EB105-F517-4739-A52B-B2786C7480CB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZegaFinancials.Services", "ZegaFinancials.Services\ZegaFinancials.Services.csproj", "{DE94FD66-A898-49BC-9677-68179C231BD4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1C6EB105-F517-4739-A52B-B2786C7480CB} = {1C6EB105-F517-4739-A52B-B2786C7480CB}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D4B8D375-AE3E-4977-AAF2-2D86FA02ACB0}"
+	ProjectSection(SolutionItems) = preProject
+		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZegaFinancials.Nhibernate", "ZegaFinancials.Nhibernate\ZegaFinancials.Nhibernate.csproj", "{63611B13-44C9-47EA-B9BF-5386947CBCD3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1D382D6-716D-4323-9625-932D33E1EF16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1D382D6-716D-4323-9625-932D33E1EF16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1D382D6-716D-4323-9625-932D33E1EF16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1D382D6-716D-4323-9625-932D33E1EF16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C6EB105-F517-4739-A52B-B2786C7480CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C6EB105-F517-4739-A52B-B2786C7480CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C6EB105-F517-4739-A52B-B2786C7480CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C6EB105-F517-4739-A52B-B2786C7480CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE94FD66-A898-49BC-9677-68179C231BD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE94FD66-A898-49BC-9677-68179C231BD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE94FD66-A898-49BC-9677-68179C231BD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE94FD66-A898-49BC-9677-68179C231BD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63611B13-44C9-47EA-B9BF-5386947CBCD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63611B13-44C9-47EA-B9BF-5386947CBCD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63611B13-44C9-47EA-B9BF-5386947CBCD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63611B13-44C9-47EA-B9BF-5386947CBCD3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {836B6653-4A52-469D-8A70-C1BB2F4AFCAB}
+	EndGlobalSection
+EndGlobal
